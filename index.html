@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сопровождение Артёма Пак</title>
+<meta name="description" content="Найди эксперта с продуктом и сделай с ним проект, который приносит тебе от 150.000₽ в месяц.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* [цвет] — акцентный цвет. Меняется в двух строках ниже:
+     --accent для кнопок, --accent-ink для цифр на светлом фоне (темнее, чтобы читалось). */
+  :root{
+    --accent:#ff3b3b;
+    --accent-ink:#e0182d;
+    --on-accent:#fff;
+    /* градиенты как у Тимочко, только в красной гамме */
+    --grad:linear-gradient(90deg,#ff2e7a 0%,#ff3b3b 50%,#ff7a2e 100%);
+    --btn-grad:linear-gradient(0deg,#d90f2e 0%,#ff4a4a 100%);
+
+    --bg:#efefef;
+    --card:#fff;
+    --ink:#1c1c1c;
+    --text:#4d4d4d;
+    --muted:#636363;
+    --slot:#e2e2e2;
+    --dark:#000;
+    --wrap:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:"Inter Tight",system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.45}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:calc(var(--wrap) + 40px);margin:0 auto;padding:0 20px}
+  .narrow{max-width:720px}
+  .center{text-align:center;margin-left:auto;margin-right:auto}
+
+  section{padding:72px 0}
+  h2{font-size:clamp(32px,5vw,60px);line-height:1.02;font-weight:600;letter-spacing:-.045em;max-width:900px}
+  h2.center{max-width:960px}
+  .lead{margin-top:18px;font-size:clamp(18px,1.7vw,22px);line-height:1.4;color:var(--text);max-width:720px}
+  .prose p{font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--text)}
+  .prose p+p{margin-top:16px}
+  .prose .small{font-size:15px;color:var(--muted)}
+  .big-line{font-size:clamp(26px,3.6vw,44px);line-height:1.12;font-weight:600;letter-spacing:-.035em}
+  .note{font-size:14px;color:var(--muted)}
+
+  /* кнопка */
+  /* кнопка: тот же градиент, что у «от 150.000₽ в месяц», плоская */
+  .btn{display:inline-flex;align-items:center;justify-content:center;width:100%;
+    background:var(--grad);color:#fff;
+    font-weight:700;font-size:18px;letter-spacing:.02em;text-transform:uppercase;
+    padding:26px 40px;border-radius:22px;
+    transition:filter .2s ease,transform .2s ease}
+  .btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .cta{margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+
+  /* крупные цифры градиентом, как у Тимочко */
+  .grad-text,.price,.date .when{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+
+  /* место под скрины и фото */
+  .slot{background:var(--slot);border-radius:24px;display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:16px;color:var(--muted);font-size:14px}
+
+  /* видео-отзыв: на телефоне во всю ширину экрана, на компьютере аккуратной карточкой по центру */
+  .review-video{margin:32px 0 0}
+  .review-video video{display:block;width:100%;height:auto;background:#111;border-radius:28px}
+  @media (min-width:640px){.review-video{margin:40px auto 0;max-width:460px}}
+  /* слайдер выплат учеников: 4 ряда */
+  .marquee-4 .marquee-track+.marquee-track{margin-top:10px}
+  .marquee .stu{height:130px;width:auto;border-radius:14px;object-fit:cover}
+  @media (min-width:640px){.marquee .stu{height:190px;border-radius:18px}.marquee-4 .marquee-track+.marquee-track{margin-top:14px}}
+
+  /* сетка скринов выплат: видно все сразу */
+  .grid-shots{margin-top:32px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .grid-shots .slot{aspect-ratio:3/4}
+  @media (min-width:640px){.grid-shots{grid-template-columns:repeat(3,1fr);gap:14px}}
+  @media (min-width:960px){.grid-shots{grid-template-columns:repeat(4,1fr)}}
+
+  /* скрины выплат проектов: ровная сетка, одинаковые карточки */
+  .pay-grid{margin-top:32px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .pay{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;border-radius:18px;
+    background:#303030}
+  @media (min-width:640px){.pay-grid{grid-template-columns:repeat(3,1fr);gap:14px}}
+  @media (min-width:960px){.pay-grid{grid-template-columns:repeat(4,1fr);gap:16px}.pay{border-radius:22px}}
+
+  /* лента скринов */
+  .rail-wrap{position:relative;margin-top:32px}
+  .rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+    margin:0 -20px;padding:0 20px}
+  .rail::-webkit-scrollbar{display:none}
+  .rail .slot{flex:none;width:240px;aspect-ratio:3/4;scroll-snap-align:start}
+  .arrows{display:none;gap:10px}
+  .arrows button{width:46px;height:46px;border-radius:50%;border:0;background:var(--accent);color:var(--on-accent);cursor:pointer;display:grid;place-items:center}
+  .arrows svg{width:18px;height:18px}
+  .head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+
+  /* ---------- 1. оффер ---------- */
+  .hero{--h1:clamp(34px,8.6vw,64px);position:relative;z-index:1;overflow:hidden;border-radius:0 0 clamp(28px,4vw,56px) clamp(28px,4vw,56px);padding:24px 0 0;text-align:center}
+  .pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .pill{padding:9px 16px;border-radius:999px;background:var(--card);font-size:14px;color:var(--text)}
+  .pill b{color:var(--ink);font-weight:600}
+  .pill i{font-style:normal}
+  .pill i::after{content:": "}
+  /* телефон: плашки всегда в одну строку — подпись сверху, значение снизу */
+  @media (max-width:639px){
+    .hero .pills{display:grid;grid-template-columns:auto auto auto;justify-content:center;gap:6px}
+    .hero .pill{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border-radius:16px;font-size:12px;line-height:1.2;white-space:nowrap}
+    .hero .pill i::after{content:""}
+    .hero .pill b{font-size:15px}
+  }
+  @media (max-width:359px){.hero .pills{gap:4px}.hero .pill{padding:7px 6px;font-size:11px;letter-spacing:-.01em}.hero .pill b{font-size:13px}}
+  .hero .name{margin-top:40px;font-size:clamp(18px,1.8vw,22px);font-weight:500;color:var(--text)}
+  .hero h1{margin:14px auto 0;max-width:1000px;font-size:var(--h1);line-height:1.02;font-weight:600;letter-spacing:-.05em}
+  .hero .lead{margin:20px auto 0}
+  .hero .cta{margin-top:30px}
+  .hero .cta .note{max-width:440px;font-size:15.5px;color:rgba(255,255,255,.78)}
+
+  /* две цифры слева от головы, одна под другой */
+  .hero-stats{position:absolute;z-index:2;left:14px;top:16%;display:flex;flex-direction:column;gap:16px;text-align:left;max-width:calc(26% + 10px)}
+  .hero-stats b{display:block;font-size:clamp(21px,3vw,44px);line-height:1;font-weight:700;letter-spacing:-.045em;color:#fff;white-space:nowrap}
+  .hero-stats span{display:block;margin-top:5px;font-size:clamp(12px,1.1vw,16px);line-height:1.35;color:rgba(255,255,255,.8)}
+
+  /* фото: на телефоне крупно на всю ширину, верх уходит в чёрный */
+  /* телефон: фото обрезано по грудь, блок заканчивается на нём */
+  .hero-photo{position:relative;margin:24px -20px 0;aspect-ratio:1086/970;overflow:hidden}
+  .hero-photo img{display:block;width:100%;height:auto}
+  .hero-text{display:block}
+
+  /* компьютер: текст слева, Артём прижат к правому и нижнему краю блока, цифры внизу слева */
+  @media (min-width:960px){
+    .hero{--h1:clamp(40px,3.6vw,52px);--pw:min(42vw,620px);text-align:left;padding:32px 0 0}
+    .hero .wrap{display:flex;flex-direction:column;min-height:calc(var(--pw) * 1.333)}
+    .hero-text{position:relative;z-index:2;max-width:calc(100% - var(--pw) + 60px)}
+    .hero .pills{justify-content:flex-start}
+    .hero h1{margin:14px 0 0}
+    .hero .lead{margin:20px 0 0}
+    .hero .cta{align-items:flex-start;text-align:left}
+    .hero-text{padding-bottom:64px}
+    .hero-stats{left:0;top:14%;gap:28px;max-width:none}
+    .hero-photo{position:absolute;right:0;bottom:0;margin:0;width:var(--pw);aspect-ratio:auto;overflow:visible}
+    .hero-photo img{display:block;-webkit-mask-image:none;mask-image:none}
+  }
+
+  @media (max-width:359px){.hero h1 .grad-text{white-space:normal!important}}
+
+  /* вырез внизу первого экрана, как у Пырикова: вырезается маской из самого блока,
+     поэтому еле заметная тень идёт ровно по его форме */
+  .hero-shell{position:relative;z-index:1;filter:drop-shadow(0 10px 14px rgba(0,0,0,.14))}
+  .hero{--notch-w:160px;--notch-h:22px;
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 22' preserveAspectRatio='none'%3E%3Cpath d='M0 22 C36 22 46 0 80 0 C114 0 124 22 160 22 Z'/%3E%3C/svg%3E") center calc(100% + 1px) / var(--notch-w) var(--notch-h) no-repeat,linear-gradient(#000,#000);
+    -webkit-mask-composite:xor;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 22' preserveAspectRatio='none'%3E%3Cpath d='M0 22 C36 22 46 0 80 0 C114 0 124 22 160 22 Z'/%3E%3C/svg%3E") center calc(100% + 1px) / var(--notch-w) var(--notch-h) no-repeat,linear-gradient(#000,#000);
+    mask-composite:exclude}
+  /* кнопка со стрелками под вырезом */
+  .hero-notch{position:relative;z-index:5;height:0}
+  .notch-btn{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:64px;height:64px;border-radius:50%;
+    background:var(--grad);color:#fff;display:grid;place-items:center;transition:transform .2s ease}
+  .notch-btn:hover{transform:translateX(-50%) translateY(2px)}
+  .notch-btn svg{width:32px;height:32px;display:block}
+  @media (max-width:639px){.hero{--notch-w:140px;--notch-h:20px}.notch-btn{width:56px;height:56px;top:-5px}}
+
+  /* ---------- 3. модель ---------- */
+  .steps{margin-top:40px;display:grid;gap:12px}
+  .step{background:var(--card);border-radius:28px;padding:28px 26px;position:relative}
+  .step .n{font-size:15px;font-weight:600;color:var(--muted)}
+  .step h3{margin-top:18px;font-size:23px;line-height:1.12;font-weight:600;letter-spacing:-.03em}
+  .step p{margin-top:10px;font-size:16px;line-height:1.5;color:var(--text)}
+  .step .arr{position:absolute;z-index:2;width:36px;height:36px;border-radius:50%;background:var(--bg);display:grid;place-items:center;color:var(--ink);
+    left:50%;bottom:-24px;transform:translateX(-50%) rotate(90deg)}
+  .step .arr svg{width:16px;height:16px}
+  .step:last-child .arr{display:none}
+
+  /* ---------- 4. агенты ---------- */
+  .tags{margin-top:32px;display:flex;flex-wrap:wrap;gap:10px}
+  .tag{padding:14px 20px;border-radius:999px;background:var(--grad);color:#fff;font-size:16px;font-weight:600}
+  .tag.more{background:transparent;border:1.5px solid #d2d2d2;color:var(--text)}
+  .speed{margin-top:16px;background:var(--card);border-radius:28px;padding:32px 26px}
+  .speed h3{font-size:clamp(24px,2.6vw,34px);line-height:1.1;font-weight:600;letter-spacing:-.035em}
+  .speed p{margin-top:14px;font-size:clamp(17px,1.5vw,20px);line-height:1.5;color:var(--text);max-width:760px}
+  .connect{margin-top:72px}
+
+  /* ---------- 6. автор ---------- */
+  .story{margin-top:32px}
+  .marquee{margin-top:48px;overflow:hidden}
+  .marquee-track{display:flex;gap:12px;width:max-content;animation:run 110s linear infinite;will-change:transform}
+  .marquee-track+.marquee-track{margin-top:12px}
+  .marquee-track.rev{animation-direction:reverse}
+  .marquee img{flex:none;height:220px;width:auto;border-radius:24px;object-fit:cover;display:block}
+  .marquee .pay{height:170px;width:auto;aspect-ratio:4/3;object-position:top;border-radius:20px}
+  @media (min-width:640px){.marquee img{height:330px}.marquee .pay{height:240px}.marquee-track+.marquee-track{margin-top:16px}}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee .slot{flex:none;width:240px;height:320px}
+  @keyframes run{to{transform:translateX(calc(-50% - 6px))}}
+  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+  .love{margin-top:72px}
+
+  /* ---------- 6. автор: история карточками ---------- */
+  .bio{margin-top:40px;display:grid;gap:12px}
+  .bio-card{background:var(--card);border-radius:28px;padding:28px 26px;display:flex;flex-direction:column;gap:14px}
+  .bio-card p{font-size:clamp(17px,1.4vw,19px);line-height:1.5;color:var(--text)}
+  .bio-tag{align-self:flex-start;padding:7px 14px;border-radius:999px;background:var(--bg);font-size:14px;font-weight:500;color:var(--ink)}
+  .bio-big{font-size:clamp(24px,2.3vw,30px)!important;line-height:1.2!important;font-weight:600;letter-spacing:-.035em;color:var(--ink)!important}
+  .winner{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;
+    background:var(--grad);color:#fff;font-size:clamp(20px,2vw,26px);font-weight:700;letter-spacing:-.02em}
+  .winner::before{content:"✓";font-weight:700}
+  .bio-quote{padding:12px 4px;font-size:clamp(24px,2.8vw,38px);line-height:1.28;font-weight:600;letter-spacing:-.035em;color:var(--ink)}
+  .bio-now{background:var(--dark);color:#fff}
+  .bio-now .bio-tag{background:#222;color:#fff}
+  .bio-now p{color:rgba(255,255,255,.75)}
+  .bio-now .bio-big{color:#fff!important}
+  .bio-now-text{display:flex;flex-direction:column;gap:14px}
+  .bio-money{margin-top:0;font-size:clamp(56px,8vw,112px);line-height:.95;font-weight:700;letter-spacing:-.06em;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .bio-money-cap{margin-top:8px;font-size:16px!important;color:rgba(255,255,255,.6)!important}
+  @media (min-width:960px){
+    .bio{grid-template-columns:repeat(3,1fr);gap:16px}
+    .bio-card{padding:36px 34px}
+    .bio-wide{grid-column:span 2}
+    .bio-quote{display:flex;align-items:center;justify-content:center;padding:12px 24px}
+    .bio-now{grid-column:1/-1;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end;padding:44px 44px}
+  }
+
+  /* два фото из Екатеринбурга */
+  .bio-pics{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .bio-pics img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:18px}
+
+  /* карта с Костанаем: подпись-табличка рядом с меткой */
+  .bio-map{position:relative;margin:auto 0 0;border-radius:20px;overflow:hidden}
+  .bio-map img{display:block;width:100%;height:auto}
+  .map-label{position:absolute;left:calc(60% + 22px);top:calc(48% - 4px);transform:translateY(-50%);
+    display:flex;flex-direction:column;padding:8px 14px 9px;border-radius:14px;background:var(--dark);color:#fff;
+    box-shadow:0 6px 18px rgba(0,0,0,.18);white-space:nowrap}
+  .map-label::before{content:"";position:absolute;left:-6px;top:50%;width:12px;height:12px;background:var(--dark);transform:translateY(-50%) rotate(45deg);border-radius:2px}
+  .map-label b{font-size:16px;font-weight:700;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .map-label span{font-size:12px;color:rgba(255,255,255,.65)}
+  @media (max-width:639px){.map-label{left:calc(60% + 14px);padding:6px 10px 7px;border-radius:11px}.map-label b{font-size:14px}.map-label span{font-size:11px}}
+
+  /* ---------- 7. результат ---------- */
+  .results{margin-top:40px;display:grid;gap:12px}
+  .rcard{background:var(--card);border-radius:28px;padding:12px 12px 28px;display:flex;flex-direction:column}
+  .rcard .slot{aspect-ratio:16/10;border-radius:20px}
+  .rcard h3{margin:22px 14px 0;font-size:22px;line-height:1.15;font-weight:600;letter-spacing:-.03em}
+  .rcard p{margin:10px 14px 0;font-size:16px;line-height:1.5;color:var(--text)}
+
+  /* ---------- 7. что получишь: нумерованный список ---------- */
+  .gets{list-style:none;margin-top:40px;border-top:1px solid #262626}
+  .gets li{display:grid;grid-template-columns:48px 1fr;column-gap:16px;row-gap:8px;padding:26px 0;border-bottom:1px solid #262626}
+  .gets .gl-n{grid-row:span 2;font-size:22px;font-weight:700;letter-spacing:-.03em;line-height:1.2;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .gets h3{font-size:clamp(22px,2.4vw,32px);line-height:1.15;font-weight:600;letter-spacing:-.035em;color:#fff}
+  .gets p{font-size:clamp(16px,1.3vw,18px);line-height:1.5;color:rgba(255,255,255,.68);max-width:640px}
+  .gets li.win h3{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  @media (min-width:960px){
+    .gets li{grid-template-columns:90px minmax(0,1.1fr) minmax(0,1fr);column-gap:40px;align-items:baseline;padding:34px 0}
+    .gets .gl-n{grid-row:auto;font-size:28px}
+  }
+
+  /* ---------- 8. как проходит ---------- */
+  .dates{margin-top:40px;display:grid;gap:12px}
+  .date{background:var(--card);border-radius:28px;padding:28px 26px}
+  .date .when{font-size:clamp(36px,4.6vw,56px);line-height:1;font-weight:600;letter-spacing:-.05em;color:var(--accent-ink)}
+  .date h3{margin-top:12px;font-size:20px;font-weight:600;letter-spacing:-.02em}
+  .date p{margin-top:8px;font-size:16px;line-height:1.5;color:var(--text)}
+  .deadline{margin-top:24px;font-size:clamp(17px,1.5vw,20px);line-height:1.5;color:var(--ink);max-width:820px}
+  .bigcards{margin-top:40px;display:grid;gap:12px}
+  .bcard{background:var(--card);border-radius:28px;padding:30px 26px 26px;display:flex;flex-direction:column}
+  .bcard h3{font-size:clamp(24px,2.6vw,34px);line-height:1.08;font-weight:600;letter-spacing:-.035em}
+  .bcard p{margin-top:12px;font-size:16px;line-height:1.5;color:var(--text)}
+  .bcard .slot{margin-top:24px;aspect-ratio:16/9}
+  .bcard .slots{margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .bcard .slots .slot{margin:0;aspect-ratio:3/4}
+  .seats{margin-top:20px;text-align:center}
+
+  /* ---------- 8. как проходит: таймлайн, дедлайн, что входит ---------- */
+  .timeline{list-style:none;margin-top:40px;display:grid;gap:12px;counter-reset:st}
+  .timeline li{background:var(--card);border-radius:28px;padding:28px 26px;position:relative;counter-increment:st}
+  .timeline li::after{content:"Этап " counter(st);position:absolute;top:28px;right:26px;font-size:14px;font-weight:500;color:var(--muted)}
+  .tl-date{font-size:clamp(40px,5vw,64px);line-height:1;font-weight:700;letter-spacing:-.05em;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .timeline h3{margin-top:12px;font-size:clamp(20px,1.8vw,24px);font-weight:600;letter-spacing:-.02em}
+  .timeline p{margin-top:8px;font-size:clamp(16px,1.3vw,18px);line-height:1.55;color:var(--text);max-width:520px}
+  .deadline-box{margin-top:12px;background:var(--dark);color:#fff;border-radius:28px;padding:28px 26px;display:grid;gap:28px;position:relative;overflow:hidden}
+  .deadline-box::before{content:"";position:absolute;inset:auto -20% -60% auto;width:70%;aspect-ratio:1;border-radius:50%;background:var(--grad);opacity:.18;filter:blur(60px);pointer-events:none}
+  .dl-label{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+  .dl-count{margin-top:12px;display:flex;gap:8px}
+  .dl-count div{flex:1;min-width:0;background:#161616;border:1px solid #262626;border-radius:18px;padding:14px 8px;text-align:center}
+  .dl-count b{display:block;font-size:clamp(40px,6vw,64px);line-height:1;font-weight:700;letter-spacing:-.04em;font-variant-numeric:tabular-nums;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .dl-count span{display:block;margin-top:6px;font-size:13px;color:rgba(255,255,255,.6)}
+  .deadline-box .dl-main{font-size:clamp(24px,2.6vw,34px);line-height:1.15;font-weight:600;letter-spacing:-.03em;text-wrap:balance}
+  .dl-sub{margin-top:16px;font-size:16px;color:rgba(255,255,255,.7)}
+  .dl-perks{list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+  .dl-perks li{position:relative;padding:10px 16px 10px 36px;border-radius:999px;background:#1b1b1b;border:1px solid #2c2c2c;font-size:15px;line-height:1.3}
+  .dl-perks li::before{content:"";position:absolute;left:14px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--grad)}
+  .inc-title{margin-top:88px;font-size:clamp(32px,5vw,60px);line-height:1.02;font-weight:600;letter-spacing:-.045em}
+  .incl{margin-top:28px;display:grid;gap:12px}
+  .inc{background:var(--card);border-radius:28px;padding:28px 26px;display:grid;grid-template-columns:1fr auto;grid-template-areas:"h i" "p p";column-gap:16px;row-gap:12px;align-content:start}
+  .inc h3{grid-area:h}
+  .inc p{grid-area:p}
+  .inc h3{font-size:clamp(21px,2vw,26px);line-height:1.18;font-weight:600;letter-spacing:-.03em}
+  .inc p{font-size:16px;line-height:1.55;color:var(--text)}
+  .inc-ic{grid-area:i;color:#e0182d;padding-top:2px}
+  .inc-ic svg{width:28px;height:28px;display:block}
+  .inc-hero{background:var(--dark);color:#fff}
+  .inc-hero h3{font-size:clamp(26px,3vw,40px)}
+  .inc-hero p{color:rgba(255,255,255,.72)}
+  .inc-hero .inc-ic{color:#ff5a3c}
+  .seats-pill{margin:28px auto 0;display:flex;width:max-content;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:var(--card);font-size:16px;font-weight:600}
+  .seats-pill span{width:10px;height:10px;border-radius:50%;background:var(--grad)}
+  @media (min-width:640px){
+    .incl{grid-template-columns:1fr 1fr}
+    .inc-hero,.inc-wide{grid-column:1/-1}
+  }
+  @media (min-width:960px){
+    .timeline{grid-template-columns:1fr 1fr;gap:16px}
+    .timeline li{padding:36px 36px}
+    .timeline li::after{top:36px;right:36px}
+    .deadline-box{margin-top:16px;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center;padding:40px 44px}
+    .incl{grid-template-columns:repeat(3,1fr);gap:16px}
+    .inc{padding:34px 32px}
+    .inc-hero{grid-column:span 2}
+    .inc-wide{grid-column:span 2}
+    .inc-hero{align-content:end}
+  }
+
+  /* ---------- 11. сам через нейросети: ответ, сравнение, цифры ---------- */
+  .ai-answer{margin-top:28px;max-width:860px;font-size:clamp(24px,3vw,40px);line-height:1.25;font-weight:600;letter-spacing:-.035em;text-wrap:balance}
+  .ai-vs{margin-top:40px;display:grid;gap:12px}
+  .ai-card{border-radius:28px;padding:28px 26px;display:flex;flex-direction:column;gap:14px}
+  .ai-card p{font-size:16px;line-height:1.6}
+  .ai-tag{font-size:14px!important;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .ai-plain{background:#141414;border:1px solid #262626}
+  .ai-plain .ai-tag{color:rgba(255,255,255,.55)}
+  .ai-plain p{color:rgba(255,255,255,.68)}
+  .ai-mine{background:var(--card);color:var(--ink)}
+  .ai-mine .ai-tag{color:#e0182d}
+  .ai-mine p{color:var(--text)}
+  .ai-mine .ai-lead{font-size:clamp(20px,1.9vw,24px)!important;line-height:1.38!important;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+  .ai-stats{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ai-stats>div{border-radius:24px;background:#141414;border:1px solid #262626;padding:22px 22px}
+  .ai-stats b{display:block;font-size:clamp(30px,4vw,48px);line-height:1;font-weight:700;letter-spacing:-.04em;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .ai-stats span{display:block;margin-top:8px;font-size:15px;line-height:1.4;color:rgba(255,255,255,.65)}
+  @media (min-width:960px){
+    .ai-vs{grid-template-columns:1fr 1fr;gap:16px}
+    .ai-card{padding:36px 36px}
+    .ai-stats{gap:16px}
+      .ai-stats>div{padding:28px 30px}
+  }
+
+  .ai-pass{margin-top:28px;text-align:center;font-size:clamp(20px,2.2vw,28px);line-height:1.3;font-weight:600;letter-spacing:-.025em;color:rgba(255,255,255,.85)}
+
+  /* ---------- 12. цена ---------- */
+  .price{margin-top:28px;font-size:clamp(44px,8vw,104px);line-height:1;font-weight:600;letter-spacing:-.055em;color:var(--accent-ink)}
+
+  /* вилка цены: два отдельных числа, чтобы не сливались */
+  .price-range{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;max-width:760px}
+  .pr-card{background:var(--card);border-radius:24px;padding:20px 18px 22px;min-width:0}
+  .pr-card span{display:block;font-size:15px;font-weight:500;color:var(--muted)}
+  .pr-card b{display:block;margin-top:6px;font-size:clamp(24px,7vw,60px);line-height:1;font-weight:700;letter-spacing:-.025em;font-variant-numeric:tabular-nums;white-space:nowrap;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  @media (min-width:960px){.pr-card{padding:28px 32px 32px}.pr-card span{font-size:17px}}
+
+  /* ---------- 13. FAQ ---------- */
+  .faq{margin-top:36px;display:grid;gap:10px;max-width:900px}
+  .faq details{background:var(--card);border-radius:22px}
+  .faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    padding:22px 24px;font-size:clamp(17px,1.5vw,20px);font-weight:600;letter-spacing:-.02em;line-height:1.3}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary i{flex:none;width:32px;height:32px;border-radius:50%;background:var(--bg);position:relative;transition:transform .25s ease}
+  .faq summary i::before,.faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:var(--ink);transform:translate(-50%,-50%)}
+  .faq summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
+  .faq details[open] summary i{transform:rotate(45deg)}
+  .faq details p{padding:0 24px 24px;font-size:16px;line-height:1.55;color:var(--text);max-width:760px}
+
+  /* ---------- 14. оффер на разбор ---------- */
+  .final{background:var(--dark);color:#fff;padding:80px 0}
+  .final-grid{display:grid;gap:32px;align-items:center}
+  .timer{max-width:440px;background:#0f0f0f;border:1px solid #262626;border-radius:24px;padding:18px 18px 20px}
+  .final h2{margin-top:32px;color:#fff}
+  .final .lead{color:rgba(255,255,255,.72)}
+  .final .filter{margin-top:22px;font-size:clamp(17px,1.5vw,20px);line-height:1.45;font-weight:600;max-width:640px}
+  .tg-card{background:var(--card);color:var(--ink);border-radius:28px;padding:32px 26px}
+  .tg-card h3{font-size:26px;line-height:1.1;font-weight:600;letter-spacing:-.03em}
+  .tg-card p{margin-top:12px;font-size:16px;line-height:1.5;color:var(--text)}
+  .tg-card .btn{margin-top:26px}
+  .tg-card .note{margin-top:12px;text-align:center}
+
+  /* ---------- подвал ---------- */
+  footer{background:var(--dark);color:#fff;padding:40px 0 48px;border-top:1px solid #1f1f1f}
+  .f-top{display:flex;flex-direction:column;gap:20px;padding-bottom:32px;border-bottom:1px solid #262626}
+  .f-name{font-size:24px;font-weight:600;letter-spacing:-.03em}
+  .f-name span{display:block;margin-top:4px;font-size:15px;font-weight:400;color:rgba(255,255,255,.62);letter-spacing:0}
+  .f-tg{font-size:16px;color:rgba(255,255,255,.8)}
+  .f-tg a{color:var(--accent)}
+  .f-bottom{padding-top:28px;display:grid;gap:8px;font-size:13px;line-height:1.5;color:rgba(255,255,255,.5)}
+  .f-bottom a{text-decoration:underline;text-underline-offset:3px}
+  .f-bottom a:hover{color:#fff}
+
+
+  /* ---------- фоны как у Тимочко: чёрные и светло-серые полосы во всю ширину ---------- */
+  .dark{background:var(--dark);color:#fff}
+  .dark .lead,.dark .prose p,.dark .name{color:rgba(255,255,255,.72)}
+  .dark .prose .small,.dark .note{color:rgba(255,255,255,.6)}
+  .dark .pill{background:#222;color:rgba(255,255,255,.72)}
+  .dark .pill b{color:#fff}
+  .dark .grid-shots .slot{background:#222;color:rgba(255,255,255,.55)}
+  .step,.rcard,.bcard,.date,.speed,.tg-card,.faq details{color:var(--ink)}
+  .dark .step .arr{background:var(--dark);color:#fff}
+
+  /* абзацы без одиноких слов в последней строке */
+  p,li,figcaption,summary{text-wrap:pretty}
+  /* заголовки переносятся ровными строками */
+  h1,h2,h3,.bio-big,.big-line,.bio-quote{text-wrap:balance}
+  .bio-quote{text-align:center}
+
+  /* ---------- компьютер ---------- */
+  @media (min-width:640px){
+    .btn{width:auto;padding:30px 64px;font-size:20px}
+    .rail .slot{width:280px}
+    .marquee .slot{width:280px;height:370px}
+    .dates{grid-template-columns:1fr 1fr}
+    .bigcards{grid-template-columns:1fr 1fr}
+    .bcard.wide{grid-column:1/-1}
+    .results{grid-template-columns:repeat(6,1fr)}
+    .rcard{grid-column:span 3}
+    .rcard:nth-child(n+3){grid-column:span 2}
+  }
+  @media (min-width:960px){
+    section{padding:112px 0}
+    .hero .name{margin-top:48px}
+    .arrows{display:flex}
+    .rail{margin:0;padding:0}
+    .steps{grid-template-columns:repeat(4,1fr)}
+    .step .arr{left:auto;right:-24px;bottom:auto;top:50%;transform:translateY(-50%)}
+    .speed{padding:40px 40px}
+    .bcard{padding:36px 36px 32px}
+    .bcard.wide{display:grid;grid-template-columns:1fr 1.1fr;gap:36px;align-items:center}
+    .bcard.wide .slots{margin-top:0}
+    .final{padding:112px 0}
+    .final-grid{grid-template-columns:1.3fr 1fr;gap:64px}
+    .tg-card{padding:40px 36px}
+    .f-top{flex-direction:row;justify-content:space-between;align-items:flex-end}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== ЭКРАН 1. ОФФЕР ===================== -->
+<div class="hero-shell">
+<header class="hero dark">
+  <div class="wrap">
+    <div class="hero-text">
+    <div class="pills">
+      <span class="pill"><i>Старт потока</i><b>11&nbsp;января</b></span>
+      <span class="pill"><i>Старт предобучения</i><b>14&nbsp;декабря</b></span>
+      <span class="pill"><i>Мест</i><b>10</b></span>
+    </div>
+
+    <p class="name">Сопровождение Артёма&nbsp;Пак</p>
+    <h1>Найди эксперта с&nbsp;продуктом и&nbsp;сделай с&nbsp;ним проект, который приносит тебе <span class="grad-text" style="white-space:nowrap">от&nbsp;150.000₽ в&nbsp;месяц</span></h1>
+    <p class="lead">За&nbsp;2&nbsp;месяца по&nbsp;моей модели. Ты&nbsp;ведёшь проект, ИИ-агенты закрывают 90%&nbsp;задач на&nbsp;каждом шаге.</p>
+
+    <div class="cta">
+      <a class="btn js-scroll" href="#offer">Хочу свой проект</a>
+      <p class="note">Бесплатный разбор на&nbsp;40&nbsp;минут. Составим план, как&nbsp;тебе найти проект и&nbsp;зарабатывать с&nbsp;него 150.000₽ в&nbsp;месяц</p>
+    </div>
+    </div>
+
+    <div class="hero-photo">
+      <img src="artem-hero.webp" alt="Артём Пак" width="1086" height="1448" fetchpriority="high">
+      <div class="hero-stats">
+        <div><b>80&nbsp;млн ₽</b><span>выручка проектов</span></div>
+        <div><b>15&nbsp;млн ₽</b><span>лично заработал<br>за&nbsp;16&nbsp;месяцев</span></div>
+        <div><b>5&nbsp;лет</b><span>в&nbsp;нише</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+</div>
+
+<!-- выступ с кнопкой-стрелкой под первым экраном -->
+<div class="hero-notch">
+  <a class="notch-btn" href="#payouts" aria-label="Листать дальше">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l7 6.5 7-6.5M5 12.5l7 6.5 7-6.5"/></svg>
+  </a>
+</div>
+
+<main>
+
+<!-- ===================== ЭКРАН 2. ВЫПЛАТЫ ПРОЕКТОВ ===================== -->
+<section id="payouts">
+  <div class="wrap">
+    <h2 class="center" style="text-align:center">Так выглядят выплаты моих проектов</h2>
+  </div>
+  <div class="marquee" data-speed="60" aria-label="Скрины выплат">
+    <div class="marquee-track">
+      <img class="pay" src="payouts/v01.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v03.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v05.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v07.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v09.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v11.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v01.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v03.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v05.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v07.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v09.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v11.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </div>
+    <div class="marquee-track rev">
+      <img class="pay" src="payouts/v02.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v04.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v06.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v08.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v10.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v12.jpg" alt="Скрин выплаты с проекта" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v02.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v04.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v06.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v08.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v10.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pay" src="payouts/v12.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 3. МОДЕЛЬ ===================== -->
+<section id="model" class="dark">
+  <div class="wrap">
+    <h2>Как работает моя&nbsp;модель и&nbsp;как это&nbsp;будет выглядеть у&nbsp;тебя?</h2>
+    <p class="lead">Находишь эксперта, у&nbsp;которого есть блог и&nbsp;курс, и&nbsp;помогаешь ему зарабатывать больше.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h3>Находишь эксперта с&nbsp;продуктом</h3>
+        <p>У&nbsp;него есть блог, курс и&nbsp;продажи, но&nbsp;зарабатывает он&nbsp;меньше, чем&nbsp;может.</p>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h3>Показываешь, где&nbsp;он&nbsp;теряет деньги</h3>
+        <p>Приходишь со&nbsp;стратегией под&nbsp;его&nbsp;блог и&nbsp;договариваешься о&nbsp;работе.</p>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h3>Внедряешь мою модель продаж</h3>
+        <p>Набираешь эксперту новых подписчиков в&nbsp;Instagram, YouTube, Telegram, Threads и&nbsp;других соцсетях и&nbsp;превращаешь их&nbsp;в&nbsp;покупателей его&nbsp;продукта.</p>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+      <div class="step">
+        <div class="n">04</div>
+        <h3>Получаешь от&nbsp;него деньги каждый месяц</h3>
+        <p>Процент с&nbsp;продаж эксперта по&nbsp;договору, пока вы&nbsp;работаете вместе.</p>
+      </div>
+    </div>
+
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 4. ИИ-АГЕНТЫ ===================== -->
+<section id="agents">
+  <div class="wrap">
+    <h2>90% этих задач закрывают мои&nbsp;<span class="grad-text">ИИ-агенты</span></h2>
+    <div class="tags">
+      <span class="tag">ИИ-агент поиска</span>
+      <span class="tag">ИИ-агент стратегии</span>
+      <span class="tag">ИИ-агент презентаций</span>
+      <span class="tag">ИИ-агент-юрист</span>
+      <span class="tag">ИИ-агент контента</span>
+      <span class="tag">ИИ-агент-монтажёр</span>
+      <span class="tag">ИИ-агент продаж</span>
+      <span class="tag">Технический ИИ-агент</span>
+      <span class="tag">ИИ-агент-финансист</span>
+      <span class="tag more">И&nbsp;другие</span>
+    </div>
+
+    <div class="speed">
+      <h3>Главное преимущество моей модели&nbsp;— скорость и&nbsp;качество</h3>
+      <p>Что обычные маркетологи и&nbsp;продюсеры делают несколько дней, моя&nbsp;готовая система агентов делает на&nbsp;том же&nbsp;уровне или&nbsp;лучше за&nbsp;несколько часов и&nbsp;минут.</p>
+    </div>
+
+    <p class="big-line center connect" style="max-width:940px"><span class="grad-text">Со&nbsp;мной ты&nbsp;подключишь их&nbsp;за&nbsp;10&nbsp;минут в&nbsp;Claude или&nbsp;ChatGPT</span>, даже если ты&nbsp;в&nbsp;России. Помогу тебе создать аккаунт и&nbsp;оплатить подписку</p>
+
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 5. ВЫПЛАТЫ УЧЕНИКОВ ===================== -->
+<section id="students" class="dark">
+  <div class="wrap">
+    <h2 class="center" style="text-align:center">Так выглядят выплаты людей, которые работают по&nbsp;моей модели</h2>
+    <div class="review-video">
+      <video src="media/otzyv.mp4" poster="media/otzyv-poster.jpg" width="540" height="718" muted loop playsinline preload="none" aria-label="Видео-отзыв ученика"></video>
+    </div>
+  </div>
+  <div class="marquee marquee-4" data-speed="60" aria-label="Скрины выплат учеников">
+    <div class="marquee-track">
+      <img class="stu" src="students/s54.jpg" width="900" height="676" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s76.jpg" width="900" height="894" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s64.jpg" width="900" height="844" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s72.jpg" width="922" height="1110" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s73.jpg" width="922" height="1110" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s62.jpg" width="900" height="612" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s54.jpg" width="900" height="676" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s76.jpg" width="900" height="894" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s64.jpg" width="900" height="844" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s72.jpg" width="922" height="1110" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s73.jpg" width="922" height="1110" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s62.jpg" width="900" height="612" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </div>
+    <div class="marquee-track rev">
+      <img class="stu" src="students/s48.jpg" width="662" height="1086" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s53.jpg" width="1290" height="945" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s65.jpg" width="900" height="1084" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s56.jpg" width="590" height="266" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s58.jpg" width="1170" height="1179" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s66.jpg" width="900" height="1084" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s48.jpg" width="662" height="1086" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s53.jpg" width="1290" height="945" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s65.jpg" width="900" height="1084" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s56.jpg" width="590" height="266" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s58.jpg" width="1170" height="1179" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s66.jpg" width="900" height="1084" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </div>
+    <div class="marquee-track">
+      <img class="stu" src="students/s75.jpg" width="900" height="850" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s52.jpg" width="1290" height="933" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s71.jpg" width="922" height="1110" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s55.jpg" width="590" height="283" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s60.jpg" width="590" height="730" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s63.jpg" width="900" height="434" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s75.jpg" width="900" height="850" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s52.jpg" width="1290" height="933" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s71.jpg" width="922" height="1110" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s55.jpg" width="590" height="283" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s60.jpg" width="590" height="730" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s63.jpg" width="900" height="434" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </div>
+    <div class="marquee-track rev">
+      <img class="stu" src="students/s49.jpg" width="590" height="780" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s59.jpg" width="591" height="640" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s67.jpg" width="900" height="1084" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s57.jpg" width="900" height="294" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s61.jpg" width="900" height="638" alt="Выплата ученика" loading="lazy" decoding="async">
+      <img class="stu" src="students/s49.jpg" width="590" height="780" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s59.jpg" width="591" height="640" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s67.jpg" width="900" height="1084" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s57.jpg" width="900" height="294" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="stu" src="students/s61.jpg" width="900" height="638" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="note" style="margin-top:20px;text-align:center">Результаты и&nbsp;сроки у&nbsp;каждого свои.</p>
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 6. АВТОР ===================== -->
+<section id="author">
+  <div class="wrap">
+    <h2>Даю только то, что&nbsp;работает у&nbsp;меня</h2>
+    <div class="bio">
+      <div class="bio-card">
+        <p class="bio-big">Меня зовут Артём&nbsp;Пак, мне&nbsp;24</p>
+        <p>Я&nbsp;из&nbsp;маленького города Костанай в&nbsp;Казахстане.</p>
+        <figure class="bio-map">
+          <img src="kostanay-map.png" alt="Карта: Костанай на севере Казахстана" width="1020" height="598" loading="lazy">
+          <figcaption class="map-label"><b>Костанай</b><span>Казахстан</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="bio-card bio-wide">
+        <p class="bio-big">Зарабатываю в&nbsp;онлайне с&nbsp;17&nbsp;лет</p>
+        <p>За&nbsp;это время попробовал много направлений: услуги маркетинга, автоворонки, монтаж, дизайн, арбитраж, SMM и&nbsp;другие.</p>
+        <p>Но&nbsp;ни&nbsp;одно из&nbsp;них не&nbsp;дало мне&nbsp;жизнь, о&nbsp;которой я&nbsp;мечтал: со&nbsp;свободой и&nbsp;деньгами. Это дало только <b class="grad-text" style="font-weight:700">продюсирование</b>.</p>
+      </div>
+
+      <div class="bio-card">
+        <p class="bio-big">Всем этим занимался параллельно с&nbsp;учёбой на&nbsp;программиста в&nbsp;Екатеринбурге</p>
+        <p>Жил в&nbsp;маленькой съёмной однушке вместе с&nbsp;3&nbsp;друзьями.</p>
+        <div class="bio-pics">
+          <img src="life/ekb1.jpg" alt="Артём в съёмной квартире в Екатеринбурге" loading="lazy" style="object-position:28% 50%">
+          <img src="life/ekb2.jpg" alt="Артём в Екатеринбурге" loading="lazy">
+        </div>
+      </div>
+
+      <blockquote class="bio-quote bio-wide">Поэтому я&nbsp;не&nbsp;понимаю молодых ребят, которые говорят, что&nbsp;у&nbsp;них нет времени, сил, возможностей и&nbsp;мотивации работать</blockquote>
+
+      <div class="bio-card bio-now">
+        <div>
+          <div class="bio-money">500.000₽</div>
+          <p class="bio-money-cap">в&nbsp;среднем трачу в&nbsp;месяц на&nbsp;себя и&nbsp;девушку</p>
+        </div>
+        <div class="bio-now-text">
+          <p class="bio-big">Сейчас я&nbsp;живу на&nbsp;Бали в&nbsp;большой вилле с&nbsp;бассейном и&nbsp;постоянно путешествую</p>
+          <p>Остальное откладываю и&nbsp;инвестирую.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" data-speed="50" aria-label="Фото Артёма">
+    <div class="marquee-track">
+      <img src="life/l01.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l03.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l05.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l07.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l09.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l11.jpg" width="618" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l13.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l15.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l17.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l19.jpg" width="618" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l21.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l23.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l01.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l03.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l05.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l07.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l09.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l11.jpg" width="618" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l13.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l15.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l17.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l19.jpg" width="618" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l21.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l23.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </div>
+    <div class="marquee-track rev">
+      <img src="life/l02.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l04.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l06.jpg" width="1100" height="825" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l08.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l10.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l12.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l14.jpg" width="1100" height="825" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l16.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l18.jpg" width="1100" height="825" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l20.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l22.jpg" width="825" height="1100" alt="Жизнь Артёма" loading="lazy" decoding="async">
+      <img src="life/l02.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l04.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l06.jpg" width="1100" height="825" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l08.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l10.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l12.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l14.jpg" width="1100" height="825" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l16.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l18.jpg" width="1100" height="825" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l20.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="life/l22.jpg" width="825" height="1100" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </div>
+  </div>
+
+  <div class="wrap">
+    <p class="big-line center love" style="max-width:900px">Я&nbsp;люблю деньги и&nbsp;жить красиво. Надеюсь, ты&nbsp;тоже. Если нет, нам не&nbsp;о&nbsp;чем говорить</p>
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 7. РЕЗУЛЬТАТ ===================== -->
+<section id="result" class="dark">
+  <div class="wrap">
+    <h2>Что ты&nbsp;получишь за&nbsp;2&nbsp;месяца сопровождения?</h2>
+    <ol class="gets">
+      <li>
+        <span class="gl-n">01</span>
+        <h3>Договоришься о&nbsp;работе с&nbsp;экспертом</h3>
+        <p>Агент находит экспертов и&nbsp;пишет им, а&nbsp;ты&nbsp;приходишь со&nbsp;стратегией под&nbsp;его&nbsp;блог.</p>
+      </li>
+      <li>
+        <span class="gl-n">02</span>
+        <h3>Привлечёшь эксперту новых подписчиков</h3>
+        <p>Рилсы, YouTube, Threads и&nbsp;другой контент, который раскачивает его&nbsp;популярность и&nbsp;медийность.</p>
+      </li>
+      <li>
+        <span class="gl-n">03</span>
+        <h3>Запустишь эксперту продажи</h3>
+        <p>Подписчики становятся покупателями его&nbsp;курса через воронку, созвоны и&nbsp;переписки.</p>
+      </li>
+      <li>
+        <span class="gl-n">04</span>
+        <h3>Соберёшь команду ИИ-агентов</h3>
+        <p>Контент, маркетинг, монтаж, презентации и&nbsp;договоры делают агенты, а&nbsp;ты&nbsp;проверяешь качество. Не&nbsp;нужно уметь всё&nbsp;самому и&nbsp;сидеть по&nbsp;12&nbsp;часов.</p>
+      </li>
+      <li class="win">
+        <span class="gl-n">05</span>
+        <h3>Будешь получать <span style="white-space:nowrap">150.000–300.000₽+</span> в&nbsp;месяц с&nbsp;одного эксперта</h3>
+        <p>Выплаты каждую неделю.</p>
+      </li>
+    </ol>
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 8. КАК ПРОХОДИТ ===================== -->
+<section id="how">
+  <div class="wrap">
+    <h2>Как проходит сопровождение?</h2>
+
+    <ol class="timeline">
+      <li>
+        <div class="tl-date">14&nbsp;декабря</div>
+        <h3>Старт предобучения</h3>
+        <p>Подключаешь Claude или&nbsp;ChatGPT и&nbsp;моих агентов, чтобы к&nbsp;началу потока всё&nbsp;работало. Учишься работать по&nbsp;моей модели и&nbsp;идёшь искать проект.</p>
+      </li>
+      <li>
+        <div class="tl-date">11&nbsp;января</div>
+        <h3>Старт потока</h3>
+        <p>2&nbsp;месяца работаешь над&nbsp;своим проектом и&nbsp;ищешь новые, чтобы зарабатывать ещё&nbsp;больше.</p>
+      </li>
+    </ol>
+
+    <div class="deadline-box">
+      <div class="dl-left">
+        <p class="dl-label">До&nbsp;закрытия набора</p>
+        <div class="dl-count" data-countdown>
+          <div><b data-t="d">00</b><span>дней</span></div>
+          <div><b data-t="h">00</b><span>часов</span></div>
+          <div><b data-t="m">00</b><span>минут</span></div>
+        </div>
+      </div>
+      <div class="dl-right">
+        <p class="dl-main">После 11&nbsp;января попасть на&nbsp;поток уже&nbsp;не&nbsp;получится</p>
+        <p class="dl-sub">Если заходишь раньше, получаешь:</p>
+        <ul class="dl-perks">
+          <li>дополнительные созвоны со&nbsp;мной</li>
+          <li>возможность задать больше вопросов</li>
+          <li>начать зарабатывать быстрее других</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+
+    <h3 class="inc-title">Что входит в&nbsp;сопровождение</h3>
+    <div class="incl">
+      <div class="inc inc-hero">
+        <span class="inc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M8 10h.01M16 10h.01"/><rect x="4" y="6" width="16" height="12" rx="4"/><path d="M9 14h6M2 12h2M20 12h2"/></svg></span>
+        <h3>9+ ИИ-агентов, на&nbsp;которых работают мои&nbsp;проекты</h3>
+        <p>Поиск, стратегия, презентации, контент, монтаж, продажи, договоры, финансы и&nbsp;техника. Я&nbsp;собирал и&nbsp;обучал их&nbsp;на&nbsp;своих проектах. Ты&nbsp;получаешь их&nbsp;готовыми и&nbsp;подключаешь за&nbsp;10&nbsp;минут.</p>
+      </div>
+      <div class="inc ">
+        <span class="inc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.3-4.3"/></svg></span>
+        <h3>Агент, который сам находит экспертов</h3>
+        <p>Каждое утро ищет их&nbsp;в&nbsp;YouTube, Instagram и&nbsp;Telegram, пишет каждому личное сообщение и&nbsp;присылает тебе отчёт.</p>
+      </div>
+      <div class="inc ">
+        <span class="inc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h4v-4h4v-4h4V7h4"/></svg></span>
+        <h3>Мой метод в&nbsp;6&nbsp;этапах</h3>
+        <p>Уроки от&nbsp;поиска эксперта до&nbsp;продаж его&nbsp;продукта. Даю только то, что&nbsp;работает прямо сейчас и&nbsp;принесло моим экспертам продаж на&nbsp;&gt;$1.000.000 за&nbsp;2025 и&nbsp;2026 год.</p>
+      </div>
+      <div class="inc ">
+        <span class="inc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg></span>
+        <h3>Готовые сообщения, презентации и&nbsp;договор</h3>
+        <p>Сообщения, на&nbsp;которые эксперты отвечают. Презентация, после которой эксперт сам пишет тебе. Договор на&nbsp;долю с&nbsp;продаж. Берёшь и&nbsp;используешь.</p>
+      </div>
+      <div class="inc ">
+        <span class="inc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="3"/><path d="M10 9l4 2-4 2z"/><path d="M8 21h8"/></svg></span>
+        <h3>4&nbsp;живых мастер-класса со&nbsp;мной</h3>
+        <p>Поиск проекта, маркетинг, контент и&nbsp;продажи. Показываю на&nbsp;своих проектах, как&nbsp;делаю сам, и&nbsp;отвечаю на&nbsp;вопросы.</p>
+      </div>
+      <div class="inc ">
+        <span class="inc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="10" rx="3"/><path d="M15 11l6-3v8l-6-3"/></svg></span>
+        <h3>От&nbsp;4&nbsp;Zoom-разборов</h3>
+        <p>На&nbsp;созвоне я&nbsp;лично разбираю твою ситуацию и&nbsp;говорю, что&nbsp;нужно сделать и&nbsp;исправить.</p>
+      </div>
+      <div class="inc inc-wide">
+        <span class="inc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18l-1 3 4-2h9a4 4 0 004-4V8a4 4 0 00-4-4H7a4 4 0 00-4 4v7a3 3 0 002 3z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg></span>
+        <h3>Чат со&nbsp;мной</h3>
+        <p>Можешь в&nbsp;любой момент задать свой вопрос, а&nbsp;я&nbsp;отвечу подробным голосовым сообщением.</p>
+      </div>
+    </div>
+
+    <p class="seats-pill"><span></span>В&nbsp;потоке 10&nbsp;мест</p>
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 9. ЗАЧЕМ Я ДЕЛЮСЬ ===================== -->
+<section id="why" class="dark">
+  <div class="wrap">
+    <h2>Почему я&nbsp;делюсь своей моделью и&nbsp;в&nbsp;чём моя&nbsp;выгода?</h2>
+    <div class="prose narrow story">
+      <p>Для меня это&nbsp;хороший дополнительный заработок.</p>
+      <p>Я&nbsp;эксперт в&nbsp;заработке на&nbsp;соцсетях и&nbsp;по&nbsp;сути продюсер самого себя. Это мой&nbsp;собственный проект: я&nbsp;ни&nbsp;с&nbsp;кем не&nbsp;делю деньги и&nbsp;всё&nbsp;забираю себе.</p>
+      <p>Со&nbsp;временем ты&nbsp;сможешь сделать так&nbsp;же, но&nbsp;уже&nbsp;со&nbsp;своим продуктом. Это следующая ступень любого продюсера.</p>
+    </div>
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 10. АКТУАЛЬНОСТЬ ===================== -->
+<section id="relevance">
+  <div class="wrap">
+    <h2>Как долго это&nbsp;будет актуально?</h2>
+    <div class="prose narrow story">
+      <p>Пока в&nbsp;мире есть деньги и&nbsp;нас не&nbsp;уничтожили ракетой или&nbsp;инопланетяне. То, чему я&nbsp;тебя научу, востребовано в&nbsp;любом бизнесе. Привлечение клиентов и&nbsp;продажи нужны всем.</p>
+    </div>
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 11. САМ ЧЕРЕЗ НЕЙРОСЕТИ? ===================== -->
+<section id="ai" class="dark">
+  <div class="wrap">
+    <h2>А&nbsp;могу ли&nbsp;я&nbsp;сам сделать всё&nbsp;это&nbsp;через нейросети?</h2>
+    <p class="ai-answer"><span class="grad-text">Можешь.</span> Только нейросеть даст тебе ровно столько, сколько ты&nbsp;знаешь сам.</p>
+
+    <div class="ai-vs">
+      <div class="ai-card ai-plain">
+        <p class="ai-tag">Нейросеть сама по&nbsp;себе</p>
+        <p>Нейросети&nbsp;— это&nbsp;помощники и&nbsp;инструменты. Без опыта в&nbsp;маркетинге и&nbsp;бизнесе они&nbsp;бесполезны: ты&nbsp;не&nbsp;поймёшь, где&nbsp;нейросеть ошиблась, и&nbsp;не&nbsp;сможешь это&nbsp;исправить.</p>
+        <p>Можно бесконечно загружать в&nbsp;нейросеть книги, материалы крупных экспертов и&nbsp;анализировать сколько угодно сайтов. Но&nbsp;я&nbsp;часто замечаю, что&nbsp;материалы даже известных российских и&nbsp;американских экспертов расходятся с&nbsp;тем, что&nbsp;работает на&nbsp;самом деле.</p>
+      </div>
+      <div class="ai-card ai-mine">
+        <p class="ai-tag">Мои агенты</p>
+        <p class="ai-lead">Мои агенты построены на&nbsp;моих реальных результатах и&nbsp;заработанных деньгах: они&nbsp;делают то, что&nbsp;принесло деньги мне.</p>
+        <p>Своих агентов я&nbsp;собирал весь этот год. Поначалу они&nbsp;искали не&nbsp;тех людей и&nbsp;находили неправильные контакты. Я&nbsp;постоянно исправлял их&nbsp;и&nbsp;обучал по&nbsp;своим моделям, пока они&nbsp;не&nbsp;начали приносить клиентов и&nbsp;деньги.</p>
+      </div>
+    </div>
+
+    <div class="ai-stats">
+      <div><b>5&nbsp;лет</b><span>в&nbsp;продюсировании</span></div>
+      <div><b>$1.000.000+</b><span>прибыли в&nbsp;моих проектах</span></div>
+    </div>
+    <p class="ai-pass">Этот опыт я&nbsp;и&nbsp;передаю тебе через этих ИИ-агентов</p>
+    <p class="big-line center" style="margin-top:64px;max-width:820px">Можешь потратить год, как&nbsp;я. А&nbsp;можешь начать с&nbsp;готового</p>
+    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 12. ЦЕНА ===================== -->
+<section id="price">
+  <div class="wrap">
+    <h2>Сколько стоит начать со&nbsp;мной работать?</h2>
+    <div class="price-range">
+      <div class="pr-card"><span>от</span><b>30.000₽</b></div>
+      <div class="pr-card"><span>до</span><b>500.000₽</b></div>
+    </div>
+    <div class="prose narrow story">
+      <p>У&nbsp;меня есть разные форматы внедрения моей модели. Цена зависит от&nbsp;твоих амбиций и&nbsp;от&nbsp;того, насколько плотно я&nbsp;буду помогать тебе лично.</p>
+      <p>Какой формат подойдёт тебе, разберём на&nbsp;бесплатном созвоне.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 13. FAQ ===================== -->
+<section id="faq">
+  <div class="wrap">
+    <h2>Частые вопросы</h2>
+    <div class="faq">
+      <details><summary>Нужен ли&nbsp;опыт? Я&nbsp;не&nbsp;из&nbsp;маркетинга.<i></i></summary>
+        <p>Нет. Я&nbsp;с&nbsp;нуля дам тебе всю базу по&nbsp;маркетингу, которая нужна для&nbsp;работы с&nbsp;экспертами. А&nbsp;мои&nbsp;агенты помогут быстро влиться в&nbsp;индустрию.</p></details>
+      <details><summary>Возьмёт ли&nbsp;меня эксперт без&nbsp;кейсов и&nbsp;портфолио?<i></i></summary>
+        <p>Ты&nbsp;приходишь со&nbsp;стратегией под&nbsp;его&nbsp;блог. Эксперт смотрит на&nbsp;план, как&nbsp;ему заработать больше, а&nbsp;не&nbsp;на&nbsp;портфолио.</p></details>
+      <details><summary>У&nbsp;меня работа или&nbsp;учёба. Сколько времени это&nbsp;займёт?<i></i></summary>
+        <p>Чтобы выйти на&nbsp;минимальные 150.000₽ в&nbsp;месяц, достаточно 2–3&nbsp;часов в&nbsp;день. Я&nbsp;сам начинал параллельно с&nbsp;работой и&nbsp;универом и&nbsp;изучал всё&nbsp;ночами.</p></details>
+      <details><summary>Хватит ли&nbsp;2&nbsp;месяцев?<i></i></summary>
+        <p>Да. Кто-то получает результат раньше, кто-то позже. Одни сразу готовы в&nbsp;бой, а&nbsp;другим сначала нужно перепрошить убеждения и&nbsp;страхи.</p></details>
+      <details><summary>А&nbsp;если я&nbsp;не&nbsp;найду эксперта?<i></i></summary>
+        <p>Найдёшь. Но&nbsp;если ты&nbsp;отправишь 100&nbsp;рассылок, которые я&nbsp;проверю и&nbsp;одобрю, и&nbsp;ни&nbsp;один эксперт не&nbsp;выйдет с&nbsp;тобой на&nbsp;созвон, я&nbsp;сам подберу тебе эксперта и&nbsp;подготовлю тебя к&nbsp;созвону с&nbsp;ним.</p></details>
+      <details><summary>Я&nbsp;не&nbsp;опоздал? Ниша не&nbsp;занята?<i></i></summary>
+        <p>Нет. Людей, которые так&nbsp;используют нейросети, единицы, особенно в&nbsp;России. А&nbsp;экспертов, которые в&nbsp;этом не&nbsp;разбираются и&nbsp;хотят зарабатывать больше, очень много, и&nbsp;ты&nbsp;для&nbsp;них отличное решение. Большинство людей ленятся в&nbsp;это&nbsp;вникать, поэтому, если ты&nbsp;разберёшься, конкуренции почти не&nbsp;будет.</p></details>
+      <details><summary>А&nbsp;если у&nbsp;меня не&nbsp;получится?<i></i></summary>
+        <p>Я&nbsp;не&nbsp;даю 100% гарантии, что&nbsp;ты&nbsp;будешь зарабатывать. Так делают только инфоцыгане и&nbsp;те, кто&nbsp;хочет развести тебя на&nbsp;деньги. Моя главная гарантия&nbsp;— я&nbsp;полностью передам тебе модель, которая работает у&nbsp;меня и&nbsp;у&nbsp;ребят, которые учились у&nbsp;меня. Результат зависит от&nbsp;тебя и&nbsp;твоих действий. Если ты&nbsp;не&nbsp;готов брать ответственность за&nbsp;свои действия и&nbsp;свою жизнь, скорее всего, ничего не&nbsp;получится. А&nbsp;если готов, я&nbsp;сделаю всё, что&nbsp;в&nbsp;моих силах, чтобы довести тебя до&nbsp;результата.</p></details>
+      <details><summary>Сейчас нет денег на&nbsp;обучение.<i></i></summary>
+        <p>Есть рассрочка на&nbsp;12&nbsp;или&nbsp;24&nbsp;месяца без&nbsp;процентов, первый платёж только через месяц. За&nbsp;этот месяц ты&nbsp;уже&nbsp;можешь заработать первые деньги. Или зайди на&nbsp;следующий поток, когда появятся деньги, но&nbsp;он, скорее всего, будет дороже.</p></details>
+      <details><summary>Что будет на&nbsp;бесплатном разборе? Мне будут впаривать?<i></i></summary>
+        <p>Подберём нишу, первых экспертов и&nbsp;план, как&nbsp;выйти на&nbsp;150.000₽ в&nbsp;месяц. Если сопровождение тебе не&nbsp;подойдёт, план останется у&nbsp;тебя.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ЭКРАН 14. ОФФЕР НА РАЗБОР ===================== -->
+<section class="final" id="offer">
+  <div class="wrap final-grid">
+    <div>
+      <div class="timer" id="timer">
+        <p class="dl-label">До&nbsp;старта 11&nbsp;января</p>
+        <div class="dl-count">
+          <div><b data-t="d">00</b><span>дней</span></div>
+          <div><b data-t="h">00</b><span>часов</span></div>
+          <div><b data-t="m">00</b><span>минут</span></div>
+        </div>
+      </div>
+      <h2>Найдём эксперта под&nbsp;тебя на&nbsp;бесплатном разборе</h2>
+      <p class="lead">За&nbsp;40&nbsp;минут в&nbsp;Zoom подробнее разберёмся с&nbsp;моделью, получишь ответы на&nbsp;вопросы, подберём нишу, первых экспертов с&nbsp;продуктом и&nbsp;план, как выйти на&nbsp;150.000₽ в&nbsp;месяц. Если сопровождение тебе не&nbsp;подойдёт, план останется у&nbsp;тебя.</p>
+      <p class="filter">Пиши мне, только если готов действовать, хочешь зарабатывать хорошие деньги и&nbsp;наконец изменить свою жизнь.</p>
+    </div>
+
+    <div class="tg-card">
+      <h3>Напиши мне&nbsp;в&nbsp;Telegram</h3>
+      <p>Нажми на&nbsp;кнопку, и&nbsp;откроется чат со&nbsp;мной с&nbsp;готовым сообщением. Отправь его, я&nbsp;задам пару вопросов и&nbsp;предложу время для&nbsp;разбора.</p>
+      <a class="btn" id="tg-btn" href="https://t.me/m/MK4LW5hbZjEy" target="_blank" rel="noopener" style="width:100%">Хочу свой проект</a>
+      <p class="note">Отвечаю сам, обычно в&nbsp;течение 10&nbsp;минут.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== ПОДВАЛ ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-name">Артём Пак<span>Сопровождение по&nbsp;продюсированию</span></div>
+      <div class="f-tg">Написать мне&nbsp;в&nbsp;Telegram: <a href="https://t.me/andzen200" target="_blank" rel="noopener">@andzen200</a></div>
+    </div>
+    <div class="f-bottom">
+      <p>Результаты и&nbsp;сроки у&nbsp;каждого свои и&nbsp;зависят от&nbsp;твоих действий.</p>
+      <p>ИП&nbsp;Нижевясова Анна Станиславовна · ИНН 690503942107 · ОГРНИП 321695200039136</p>
+      <p><a href="#">Политика конфиденциальности</a> · <a href="#">Договор-оферта</a> · © 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Кнопка на экране 14 ведёт по ссылке Telegram с готовым сообщением (t.me/m/...).
+
+  // Видео-отзыв играет только когда виден на экране и не грузится заранее
+  document.querySelectorAll('.review-video video').forEach(v => {
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) { v.play().catch(()=>{}); } else { v.pause(); } }, {threshold: .25}).observe(v);
+  });
+
+  // Плавающие слайдеры: одинаковая скорость на любом экране (data-speed — пикселей в секунду)
+  function setMarqueeSpeed(){
+    document.querySelectorAll('.marquee').forEach(m => {
+      const v = +m.dataset.speed || 50;
+      m.querySelectorAll('.marquee-track').forEach(t => t.style.animationDuration = (t.scrollWidth / 2 / v) + 's');
+    });
+  }
+  setMarqueeSpeed(); addEventListener('resize', setMarqueeSpeed); addEventListener('load', setMarqueeSpeed);
+
+  // Стрелки у лент со скринами
+  document.querySelectorAll('.arrows').forEach(box => {
+    const rail = document.getElementById(box.dataset.rail);
+    box.querySelectorAll('button').forEach(b => b.addEventListener('click', () =>
+      rail.scrollBy({left: b.dataset.dir * (rail.clientWidth * .8), behavior: 'smooth'})));
+  });
+
+  // Таймер до 11 января 2027, 00:00 по Москве (на экране 8 и экране 14). После нуля прячется.
+  (function(){
+    const end = new Date('2027-01-11T00:00:00+03:00').getTime();
+    const boxes = [document.getElementById('timer'), ...document.querySelectorAll('[data-countdown]')].filter(Boolean);
+    const pad = n => String(n).padStart(2,'0');
+    function tick(){
+      const left = end - Date.now();
+      boxes.forEach(box => {
+        if (left <= 0){ (box.closest('.dl-left') || box).style.display='none'; return; }
+        const m = Math.floor(left/60000), el = k => box.querySelector('[data-t="'+k+'"]');
+        el('d').textContent = pad(Math.floor(m/1440)); el('h').textContent = pad(Math.floor(m%1440/60)); el('m').textContent = pad(m%60);
+      });
+      if (left > 0) setTimeout(tick, 1000 * (60 - new Date().getSeconds()));
+    }
+    tick();
+  })();
+</script>
+</body>
+</html>
