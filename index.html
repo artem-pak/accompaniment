@@ -176,6 +176,8 @@
   /* ---------- 4. агенты ---------- */
   .tags{margin-top:32px;display:flex;flex-wrap:wrap;gap:10px}
   .tag{padding:14px 20px;border-radius:999px;background:var(--grad);color:#fff;font-size:16px;font-weight:600}
+  /* телефон: плашки растягиваются на всю строку, без дыр справа */
+  @media (max-width:639px){.tags{gap:8px}.tag{flex:1 1 auto;text-align:center;padding:13px 16px;font-size:15px}}
   .tag.more{background:transparent;border:1.5px solid #d2d2d2;color:var(--text)}
   .speed{margin-top:16px;background:var(--card);border-radius:28px;padding:32px 26px}
   .speed h3{font-size:clamp(24px,2.6vw,34px);line-height:1.1;font-weight:600;letter-spacing:-.035em}
@@ -197,7 +199,6 @@
   .marquee.off .marquee-track{animation-play-state:paused}
   .marquee .slot{flex:none;width:240px;height:320px}
   @keyframes run{to{transform:translateX(calc(-50% - 6px))}}
-  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
   .love{margin-top:72px}
 
   /* ---------- 6. автор: история карточками ---------- */
