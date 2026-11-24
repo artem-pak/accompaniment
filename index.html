@@ -191,7 +191,10 @@
   .marquee img{flex:none;height:220px;width:auto;border-radius:24px;object-fit:cover;display:block}
   .marquee .pay{height:170px;width:auto;aspect-ratio:4/3;object-position:top;border-radius:20px}
   @media (min-width:640px){.marquee img{height:330px}.marquee .pay{height:240px}.marquee-track+.marquee-track{margin-top:16px}}
-  .marquee:hover .marquee-track{animation-play-state:paused}
+  /* пауза по наведению только на компьютере с мышкой (на телефоне касание «залипает» и слайдер вставал) */
+  @media (hover:hover) and (pointer:fine){.marquee:hover .marquee-track{animation-play-state:paused}}
+  /* слайдер вне экрана не крутится — меньше нагрузка на телефон */
+  .marquee.off .marquee-track{animation-play-state:paused}
   .marquee .slot{flex:none;width:240px;height:320px}
   @keyframes run{to{transform:translateX(calc(-50% - 6px))}}
   @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
@@ -1031,6 +1034,11 @@
   // Видео-отзыв играет только когда виден на экране и не грузится заранее
   document.querySelectorAll('.review-video video').forEach(v => {
     new IntersectionObserver(([e]) => { if (e.isIntersecting) { v.play().catch(()=>{}); } else { v.pause(); } }, {threshold: .25}).observe(v);
+  });
+
+  // Слайдеры крутятся только когда видны на экране
+  document.querySelectorAll('.marquee').forEach(m => {
+    new IntersectionObserver(([e]) => m.classList.toggle('off', !e.isIntersecting), {rootMargin: '200px 0px'}).observe(m);
   });
 
   // Плавающие слайдеры: одинаковая скорость на любом экране (data-speed — пикселей в секунду)
