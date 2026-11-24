@@ -286,7 +286,7 @@
     background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .timeline h3{margin-top:12px;font-size:clamp(20px,1.8vw,24px);font-weight:600;letter-spacing:-.02em}
   .timeline p{margin-top:8px;font-size:clamp(16px,1.3vw,18px);line-height:1.55;color:var(--text);max-width:520px}
-  .deadline-box{margin-top:12px;background:var(--dark);color:#fff;border-radius:28px;padding:28px 26px;display:grid;gap:28px;position:relative;overflow:hidden}
+  .deadline-box{margin-top:28px;background:var(--dark);color:#fff;border-radius:28px;padding:28px 26px;display:grid;gap:28px;position:relative;overflow:hidden}
   .deadline-box::before{content:"";position:absolute;inset:auto -20% -60% auto;width:70%;aspect-ratio:1;border-radius:50%;background:var(--grad);opacity:.18;filter:blur(60px);pointer-events:none}
   .dl-label{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
   .dl-count{margin-top:12px;display:flex;gap:8px}
@@ -322,7 +322,7 @@
     .timeline{grid-template-columns:1fr 1fr;gap:16px}
     .timeline li{padding:36px 36px}
     .timeline li::after{top:36px;right:36px}
-    .deadline-box{margin-top:16px;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center;padding:40px 44px}
+    .deadline-box{margin-top:32px;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center;padding:40px 44px}
     .incl{grid-template-columns:repeat(3,1fr);gap:16px}
     .inc{padding:34px 32px}
     .inc-hero{grid-column:span 2}
@@ -825,28 +825,6 @@
       </li>
     </ol>
 
-    <div class="deadline-box">
-      <div class="dl-left">
-        <p class="dl-label">До&nbsp;закрытия набора</p>
-        <div class="dl-count" data-countdown>
-          <div><b data-t="d">00</b><span>дней</span></div>
-          <div><b data-t="h">00</b><span>часов</span></div>
-          <div><b data-t="m">00</b><span>минут</span></div>
-        </div>
-      </div>
-      <div class="dl-right">
-        <p class="dl-main">После 11&nbsp;января попасть на&nbsp;поток уже&nbsp;не&nbsp;получится</p>
-        <p class="dl-sub">Если заходишь раньше, получаешь:</p>
-        <ul class="dl-perks">
-          <li>дополнительные созвоны со&nbsp;мной</li>
-          <li>возможность задать больше вопросов</li>
-          <li>начать зарабатывать быстрее других</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
-
     <h3 class="inc-title">Что входит в&nbsp;сопровождение</h3>
     <div class="incl">
       <div class="inc inc-hero">
@@ -887,6 +865,26 @@
     </div>
 
     <p class="seats-pill"><span></span>В&nbsp;потоке 10&nbsp;мест</p>
+
+    <div class="deadline-box">
+      <div class="dl-left">
+        <p class="dl-label">До&nbsp;закрытия набора</p>
+        <div class="dl-count" data-countdown>
+          <div><b data-t="d">00</b><span>дней</span></div>
+          <div><b data-t="h">00</b><span>часов</span></div>
+          <div><b data-t="m">00</b><span>минут</span></div>
+        </div>
+      </div>
+      <div class="dl-right">
+        <p class="dl-main">После 11&nbsp;января попасть на&nbsp;поток уже&nbsp;не&nbsp;получится</p>
+        <p class="dl-sub">Если заходишь раньше, получаешь:</p>
+        <ul class="dl-perks">
+          <li>дополнительные созвоны со&nbsp;мной</li>
+          <li>возможность задать больше вопросов</li>
+          <li>начать зарабатывать быстрее других</li>
+        </ul>
+      </div>
+    </div>
     <div class="cta"><a class="btn js-scroll" href="#offer">Хочу свой проект</a></div>
   </div>
 </section>
