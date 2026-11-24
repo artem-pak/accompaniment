@@ -387,6 +387,11 @@
   .final h2{margin-top:32px;color:#fff}
   .final .lead{color:rgba(255,255,255,.72)}
   .final .filter{margin-top:22px;font-size:clamp(17px,1.5vw,20px);line-height:1.45;font-weight:600;max-width:640px}
+  .final-list{list-style:none;margin-top:16px;display:grid;gap:10px;max-width:560px}
+  .final-list li{position:relative;padding-left:34px;font-size:clamp(17px,1.5vw,20px);line-height:1.4;color:#fff}
+  .final-list li::before{content:"";position:absolute;left:0;top:.2em;width:20px;height:20px;border-radius:50%;background:var(--grad)}
+  .final-list li::after{content:"";position:absolute;left:7px;top:calc(.2em + 4px);width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .final-note{margin-top:16px;font-size:15px;line-height:1.5;color:rgba(255,255,255,.6)}
   .tg-card{background:var(--card);color:var(--ink);border-radius:28px;padding:32px 26px}
   .tg-card h3{font-size:26px;line-height:1.1;font-weight:600;letter-spacing:-.03em}
   .tg-card p{margin-top:12px;font-size:16px;line-height:1.5;color:var(--text)}
@@ -997,7 +1002,14 @@
         </div>
       </div>
       <h2>Найдём эксперта под&nbsp;тебя на&nbsp;бесплатном разборе</h2>
-      <p class="lead">За&nbsp;40&nbsp;минут в&nbsp;Zoom подробнее разберёмся с&nbsp;моделью, получишь ответы на&nbsp;вопросы, подберём нишу, первых экспертов с&nbsp;продуктом и&nbsp;план, как выйти на&nbsp;150.000₽ в&nbsp;месяц. Если сопровождение тебе не&nbsp;подойдёт, план останется у&nbsp;тебя.</p>
+      <p class="lead">За&nbsp;40&nbsp;минут в&nbsp;Zoom:</p>
+      <ul class="final-list">
+        <li>Подробнее разберёмся с&nbsp;моделью</li>
+        <li>Получишь ответы на&nbsp;вопросы</li>
+        <li>Подберём нишу и&nbsp;первых экспертов с&nbsp;продуктом</li>
+        <li>Составим план, как выйти на&nbsp;150.000₽ в&nbsp;месяц</li>
+      </ul>
+      <p class="final-note">Если сопровождение тебе не&nbsp;подойдёт, план останется у&nbsp;тебя</p>
       <p class="filter">Пиши мне, только если готов действовать, хочешь зарабатывать хорошие деньги и&nbsp;наконец изменить свою жизнь.</p>
     </div>
 
