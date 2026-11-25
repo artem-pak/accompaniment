@@ -192,8 +192,7 @@
     if (msgs.length) { err.textContent = 'Чтобы продолжить: ' + msgs.join(', ') + '.'; err.classList.add('on'); return; }
     err.classList.remove('on');
     if (!PAY_URL) { err.innerHTML = 'Оплата скоро откроется. Пока напиши мне в&nbsp;Telegram: <a href="https://t.me/andzen200" target="_blank" rel="noopener">@andzen200</a>'; err.classList.add('on'); return; }
-    const q = new URLSearchParams({name:f.name.value.trim(), email:f.email.value.trim(), phone:f.phone.value.trim()});
-    location.href = PAY_URL + (PAY_URL.includes('?') ? '&' : '?') + q;
+    location.href = PAY_URL;
   });
 </script>
 </body>
