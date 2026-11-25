@@ -201,13 +201,13 @@
     if (!f.pd.checked) msgs.push('дай согласие на обработку данных');
     if (msgs.length) { err.textContent = 'Чтобы продолжить: ' + msgs.join(', ') + '.'; err.classList.add('on'); return; }
     err.classList.remove('on');
-    if (!PAY_URL) { err.innerHTML = 'Оплата скоро откроется. Пока напиши мне в&nbsp;Telegram: <a href="https://t.me/andzen200" target="_blank" rel="noopener">@andzen200</a>'; err.classList.add('on'); return; }
     // заявка уходит в таблицу, затем сразу переход на оплату
     if (LEADS_URL) {
       const body = JSON.stringify({tariff:TARIFF, name:f.name.value.trim(), email:f.email.value.trim(), phone:f.phone.value.trim(),
         telegram:f.telegram.value.trim(), offer:f.offer.checked, pd:f.pd.checked, ads:f.ads.checked, page:location.pathname, docs:'25.11.2026', hp:f.website ? f.website.value : ''});
       try { fetch(LEADS_URL, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body}); } catch (_) {}
     }
+    if (!PAY_URL) { err.innerHTML = 'Заявка получена. Оплата скоро откроется, а&nbsp;пока напиши мне в&nbsp;Telegram: <a href="https://t.me/andzen200" target="_blank" rel="noopener">@andzen200</a>'; err.classList.add('on'); return; }
     setTimeout(() => { location.href = PAY_URL; }, 350);
   });
 </script>
