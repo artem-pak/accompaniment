@@ -56,6 +56,12 @@
   .chk input{width:20px;height:20px;margin-top:1px;accent-color:var(--accent-ink);cursor:pointer}
   .chk a{color:var(--ink);text-underline-offset:2px}
   .chk em{font-style:normal;color:var(--muted)}
+  .bonus{padding:16px 18px;border-radius:18px;background:var(--bg);display:grid;gap:8px;font-size:14px;line-height:1.45;color:var(--text)}
+  .bonus[hidden]{display:none}
+  .bonus b{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+  .bonus ul{list-style:none;display:grid;gap:6px}
+  .bonus li{padding-left:14px;position:relative}
+  .bonus li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--grad)}
   .err{display:none;font-size:14px;color:var(--accent-ink);font-weight:500}
   .err.on{display:block}
   .btn{margin-top:6px;width:100%;border:0;cursor:pointer;font:inherit;font-size:18px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:#fff;background:var(--grad);border-radius:20px;padding:22px 20px;transition:transform .15s,filter .15s}
@@ -103,7 +109,7 @@
       <li><b>Готовые материалы</b><span>Сообщения экспертам, презентация, типовой договор на&nbsp;долю с&nbsp;продаж.</span></li>
       <li><b>4 мастер-класса</b><span>В&nbsp;прямом эфире в&nbsp;Zoom.</span></li>
       <li><b>Не&nbsp;менее 4 Zoom-разборов</b><span>Разбираю твою ситуацию и&nbsp;проект.</span></li>
-      <li><b>Чат со&nbsp;мной</b><span>Отвечаю на&nbsp;вопросы, в&nbsp;том числе голосовыми, весь срок потока.</span></li>
+      <li><b>Чат со&nbsp;мной</b><span>Отвечаю на&nbsp;вопросы, в&nbsp;том числе голосовыми, с&nbsp;момента оплаты до&nbsp;11&nbsp;марта 2027&nbsp;года.</span></li>
     </ul>
     <p class="dates"><b>Срок:</b> поток с&nbsp;11&nbsp;января по&nbsp;11&nbsp;марта 2027&nbsp;года, дистанционно (Telegram и&nbsp;Zoom). Для&nbsp;лиц старше 18&nbsp;лет. Полный состав и&nbsp;гарантированный минимум&nbsp;— в&nbsp;<a href="../docs/offer-prilozhenie.html">Приложении №&nbsp;1 к&nbsp;оферте</a>.</p>
   </section>
@@ -123,6 +129,14 @@
       <label class="chk"><input type="checkbox" name="pd" required><span>Даю <a href="../docs/consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../docs/privacy.html" target="_blank">Политики обработки персональных данных</a></span></label>
       <label class="chk"><input type="checkbox" name="ads"><span>Согласен(на) получать <a href="../docs/consent-ads.html" target="_blank">рекламные и&nbsp;информационные сообщения</a> <em>— необязательно</em></span></label>
 
+      <div class="bonus" id="bonus" hidden>
+        <b>Бонус за&nbsp;ранний вход</b>
+        <ul>
+          <li data-until="2026-12-01T23:59:00+03:00">Оплати до&nbsp;1&nbsp;декабря, 23:59&nbsp;МСК&nbsp;— попадёшь на&nbsp;бонусный групповой Zoom со&nbsp;мной 2&nbsp;декабря.</li>
+          <li data-until="2026-12-14T23:59:00+03:00">Оплати до&nbsp;14&nbsp;декабря, 23:59&nbsp;МСК&nbsp;— попадёшь на&nbsp;второй бонусный групповой Zoom 15&nbsp;декабря.</li>
+        </ul>
+        <p>Чат со&nbsp;мной и&nbsp;материалы открываются сразу после оплаты: больше времени на&nbsp;вопросы и&nbsp;обратную связь.</p>
+      </div>
       <p class="err" id="err" role="alert"></p>
       <button class="btn" type="submit">Перейти к&nbsp;оплате</button>
       <p class="fine">Нажимая кнопку, ты&nbsp;оформляешь заказ на&nbsp;условиях <a href="../docs/offer.html" target="_blank">оферты</a>. Оплата проходит на&nbsp;платформе GetCourse: картой, через СБП или&nbsp;в&nbsp;рассрочку от&nbsp;банков-партнёров. Условия рассрочки ты&nbsp;увидишь до&nbsp;её&nbsp;оформления. Доход не&nbsp;гарантируется: результат зависит от&nbsp;твоих действий.</p>
@@ -147,6 +161,24 @@
 <script>
   // Куда отправлять заявку: сюда подставится форма/ссылка оплаты GetCourse для этого тарифа
   const PAY_URL = "";
+
+  // Бонусный блок: строки гаснут сами после своего срока (МСК). Время берём с сервера (заголовок Date), иначе с устройства.
+  (function(){
+    const box = document.getElementById('bonus'); if (!box) return;
+    const items = [...box.querySelectorAll('li[data-until]')];
+    let offset = 0;
+    const apply = () => {
+      const now = Date.now() + offset;
+      let left = 0;
+      items.forEach(li => { const on = now < Date.parse(li.dataset.until); li.hidden = !on; if (on) left++; });
+      box.hidden = left === 0;
+    };
+    apply();
+    fetch(location.pathname, {method:'HEAD', cache:'no-store'}).then(r => {
+      const d = Date.parse(r.headers.get('date')); if (d) { offset = d - Date.now(); apply(); }
+    }).catch(()=>{});
+    setInterval(apply, 30000);
+  })();
   const f = document.getElementById('pay-form'), err = document.getElementById('err');
   f.addEventListener('submit', e => {
     e.preventDefault();
