@@ -56,7 +56,8 @@
   .chk input{width:20px;height:20px;margin-top:1px;accent-color:var(--accent-ink);cursor:pointer}
   .chk a{color:var(--ink);text-underline-offset:2px}
   .chk em{font-style:normal;color:var(--muted)}
-  .bonus{padding:16px 18px;border-radius:18px;background:var(--bg);display:grid;gap:8px;font-size:14px;line-height:1.45;color:var(--text)}
+  .side{display:grid;gap:12px;align-content:start}
+  .bonus{display:grid;gap:8px;font-size:14px;line-height:1.45;color:var(--text);padding:22px}
   .bonus[hidden]{display:none}
   .bonus b{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
   .bonus strong{font-weight:700;color:var(--ink)}
@@ -84,7 +85,7 @@
     .pill{padding:13px 20px}
     .main{grid-template-columns:1fr 440px;gap:16px;align-items:start;margin-top:20px}
     .card{padding:36px 34px}
-    .pay{position:sticky;top:16px}
+    .side{position:sticky;top:16px;gap:16px}
   }
 </style>
 </head>
@@ -117,12 +118,23 @@
     <p class="dates"><b>Срок:</b> с&nbsp;момента оплаты до&nbsp;11&nbsp;марта 2027&nbsp;года. Групповая часть идёт в&nbsp;потоке с&nbsp;11&nbsp;января, дистанционно (Telegram и&nbsp;Zoom). Для&nbsp;лиц старше 18&nbsp;лет. Состав групповой части и&nbsp;гарантированный минимум&nbsp;— в&nbsp;<a href="../docs/offer-prilozhenie.html">Приложении №&nbsp;1 к&nbsp;оферте</a>.</p>
   </section>
 
+  <div class="side">
+  <section class="card bonus" id="bonus" hidden>
+      <b>Бонус за&nbsp;ранний вход</b>
+      <ul>
+        <li data-until="2026-12-01T23:59:00+03:00">Оплати до&nbsp;1&nbsp;декабря, 23:59&nbsp;МСК&nbsp;— попадёшь на&nbsp;<strong>бонусный групповой Zoom со&nbsp;мной 2&nbsp;декабря</strong>.</li>
+        <li data-until="2026-12-14T23:59:00+03:00">Оплати до&nbsp;14&nbsp;декабря, 23:59&nbsp;МСК&nbsp;— попадёшь на&nbsp;<strong>второй бонусный групповой Zoom 15&nbsp;декабря</strong>.</li>
+      </ul>
+      <p>Чат со&nbsp;мной и&nbsp;материалы открываются сразу после оплаты: больше времени на&nbsp;вопросы и&nbsp;обратную связь.</p>
+  </section>
+
   <section class="card pay" id="pay">
     <h2>Оформить участие</h2>
     <div class="price" style="margin-top:16px"><span class="price-v">149.000₽</span></div>
     <p class="price-n">Личный тариф. Стоимость фиксируется в&nbsp;момент оплаты и&nbsp;подтверждается кассовым чеком.</p>
 
     <form id="pay-form" novalidate>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <label class="f"><span>Имя и&nbsp;фамилия</span><input type="text" name="name" autocomplete="name" required></label>
       <label class="f"><span>Электронная почта <i>— на&nbsp;неё придёт чек</i></span><input type="email" name="email" autocomplete="email" inputmode="email" required></label>
       <label class="f"><span>Телефон</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7" required></label>
@@ -132,19 +144,12 @@
       <label class="chk"><input type="checkbox" name="pd" required><span>Даю <a href="../docs/consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../docs/privacy.html" target="_blank">Политики обработки персональных данных</a></span></label>
       <label class="chk"><input type="checkbox" name="ads"><span>Согласен(на) получать <a href="../docs/consent-ads.html" target="_blank">рекламные и&nbsp;информационные сообщения</a> <em>— необязательно</em></span></label>
 
-      <div class="bonus" id="bonus" hidden>
-        <b>Бонус за&nbsp;ранний вход</b>
-        <ul>
-          <li data-until="2026-12-01T23:59:00+03:00">Оплати до&nbsp;1&nbsp;декабря, 23:59&nbsp;МСК&nbsp;— попадёшь на&nbsp;<strong>бонусный групповой Zoom со&nbsp;мной 2&nbsp;декабря</strong>.</li>
-          <li data-until="2026-12-14T23:59:00+03:00">Оплати до&nbsp;14&nbsp;декабря, 23:59&nbsp;МСК&nbsp;— попадёшь на&nbsp;<strong>второй бонусный групповой Zoom 15&nbsp;декабря</strong>.</li>
-        </ul>
-        <p>Чат со&nbsp;мной и&nbsp;материалы открываются сразу после оплаты: больше времени на&nbsp;вопросы и&nbsp;обратную связь.</p>
-      </div>
       <p class="err" id="err" role="alert"></p>
       <button class="btn" type="submit">Перейти к&nbsp;оплате</button>
       <p class="fine">Нажимая кнопку, ты&nbsp;оформляешь заказ на&nbsp;условиях <a href="../docs/offer.html" target="_blank">оферты</a>. Оплата проходит на&nbsp;платформе GetCourse: картой, через СБП или&nbsp;в&nbsp;рассрочку от&nbsp;банков-партнёров. Условия рассрочки ты&nbsp;увидишь до&nbsp;её&nbsp;оформления. Доход не&nbsp;гарантируется: результат зависит от&nbsp;твоих действий.</p>
     </form>
   </section>
+  </div>
 </main>
 
 <footer>
@@ -164,6 +169,9 @@
 <script>
   // Куда отправлять заявку: сюда подставится форма/ссылка оплаты GetCourse для этого тарифа
   const PAY_URL = "https://anny-nizh.getplatinum.ru/payment/NFu4x92";
+  // Адрес скрипта Google, который дописывает заявку в таблицу (см. leads-script.gs)
+  const LEADS_URL = "";
+  const TARIFF = "Личный тариф";
 
   // Бонусный блок: строки гаснут сами после своего срока (МСК). Время берём с сервера (заголовок Date), иначе с устройства.
   (function(){
@@ -194,7 +202,13 @@
     if (msgs.length) { err.textContent = 'Чтобы продолжить: ' + msgs.join(', ') + '.'; err.classList.add('on'); return; }
     err.classList.remove('on');
     if (!PAY_URL) { err.innerHTML = 'Оплата скоро откроется. Пока напиши мне в&nbsp;Telegram: <a href="https://t.me/andzen200" target="_blank" rel="noopener">@andzen200</a>'; err.classList.add('on'); return; }
-    location.href = PAY_URL;
+    // заявка уходит в таблицу, затем сразу переход на оплату
+    if (LEADS_URL) {
+      const body = JSON.stringify({tariff:TARIFF, name:f.name.value.trim(), email:f.email.value.trim(), phone:f.phone.value.trim(),
+        telegram:f.telegram.value.trim(), offer:f.offer.checked, pd:f.pd.checked, ads:f.ads.checked, page:location.pathname, docs:'25.11.2026', hp:f.website ? f.website.value : ''});
+      try { fetch(LEADS_URL, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body}); } catch (_) {}
+    }
+    setTimeout(() => { location.href = PAY_URL; }, 350);
   });
 </script>
 </body>
