@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Групповой тариф — Сопровождение Артёма Пак</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#efefef;--card:#fff;--ink:#0b0b0b;--text:#4a4a4a;--muted:#666;--line:#e2e2e2;--accent:#ff3b3b;--accent-ink:#e0182d;
+    --grad:linear-gradient(90deg,#ff2e7a 0%,#ff3b3b 50%,#ff7a2e 100%)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{font-family:"Inter Tight",system-ui,-apple-system,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.45}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .hero{background:#000;color:#fff;border-radius:0 0 32px 32px;padding:20px 0 40px}
+  .pills{display:flex;flex-wrap:nowrap;gap:.45em;font-size:min(15px,calc((100vw - 32px) / var(--pills-em,32)))}
+  .pill{background:#1c1c1e;border-radius:999px;padding:.72em 1em;font-size:1em;color:rgba(255,255,255,.65);line-height:1.25;white-space:nowrap}
+  .pill b{margin-left:.25em;font-size:1em;color:#fff;font-weight:600}
+  .by{margin-top:32px;display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.72);font-size:17px}
+  .by img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:50% 6%;background:#222}
+  .by b{display:block;color:#fff;font-weight:600}
+  h1{margin-top:32px;font-size:clamp(34px,6vw,64px);line-height:1.02;font-weight:600;letter-spacing:-.05em;text-wrap:balance}
+  .tariff{display:inline-block;margin-top:18px;padding:10px 18px;border-radius:999px;background:var(--grad);font-weight:700;font-size:16px;letter-spacing:.01em}
+  .lead{margin-top:16px;max-width:640px;font-size:clamp(17px,1.6vw,20px);color:rgba(255,255,255,.72);text-wrap:pretty}
+
+  .main{display:grid;gap:12px;margin-top:16px}
+  .card{background:var(--card);border-radius:28px;padding:26px 22px}
+  h2{font-size:clamp(24px,2.6vw,32px);line-height:1.1;font-weight:600;letter-spacing:-.04em}
+  .inc{margin-top:18px;list-style:none;display:grid;gap:0}
+  .inc li{padding:14px 0;border-top:1px solid var(--line);display:grid;gap:2px}
+  .inc li:first-child{border-top:0;padding-top:4px}
+  .inc b{font-size:18px;font-weight:600;letter-spacing:-.02em}
+  .inc span{font-size:15px;color:var(--text)}
+  .inc li.plus{border:0;margin-bottom:8px;padding:16px 18px;border-radius:18px;background:linear-gradient(#fff,#fff) padding-box,var(--grad) border-box;border:2px solid transparent}
+  .inc li.plus-sep{border:0;padding:10px 0 2px}
+  .inc li.plus-sep b{font-size:15px;color:var(--text);font-weight:600}
+  .dates{margin-top:18px;padding:16px;border-radius:18px;background:var(--bg);font-size:15px;color:var(--text)}
+  .dates b{color:var(--ink);font-weight:600}
+
+  .price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .price-v{font-size:clamp(36px,4.4vw,52px);font-weight:700;letter-spacing:-.05em;line-height:1}
+  .price-n{margin-top:8px;font-size:14px;color:var(--muted)}
+  form{margin-top:22px;display:grid;gap:12px}
+  label.f span{display:block;font-size:14px;font-weight:500;margin-bottom:6px}
+  label.f span i{font-style:normal;color:var(--muted);font-weight:400}
+  input[type=text],input[type=email],input[type=tel]{width:100%;font:inherit;font-size:17px;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);background:#fafafa;color:var(--ink);outline:none;transition:border-color .15s}
+  input:focus{border-color:var(--ink);background:#fff}
+  input:user-invalid{border-color:var(--accent)}
+  .chk{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;font-size:14px;line-height:1.45;color:var(--text);cursor:pointer}
+  .chk input{width:20px;height:20px;margin-top:1px;accent-color:var(--accent-ink);cursor:pointer}
+  .chk a{color:var(--ink);text-underline-offset:2px}
+  .chk em{font-style:normal;color:var(--muted)}
+  .err{display:none;font-size:14px;color:var(--accent-ink);font-weight:500}
+  .err.on{display:block}
+  .btn{margin-top:6px;width:100%;border:0;cursor:pointer;font:inherit;font-size:18px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:#fff;background:var(--grad);border-radius:20px;padding:22px 20px;transition:transform .15s,filter .15s}
+  .btn:hover{filter:brightness(1.05)} .btn:active{transform:scale(.99)}
+  .fine{font-size:13px;line-height:1.5;color:var(--muted)}
+  .fine a{color:var(--text)}
+
+  footer{margin-top:40px;background:#000;color:#fff;padding:40px 0 48px;border-radius:32px 32px 0 0}
+  .f-name{font-size:22px;font-weight:600;letter-spacing:-.03em}
+  .f-name span{display:block;font-size:15px;font-weight:400;color:rgba(255,255,255,.6);margin-top:4px;letter-spacing:0}
+  .f-tg{margin-top:14px;font-size:15px;color:rgba(255,255,255,.75)}
+  .f-bottom{margin-top:24px;padding-top:24px;border-top:1px solid #222;display:grid;gap:8px;font-size:13px;line-height:1.5;color:rgba(255,255,255,.5)}
+  .f-bottom a,.f-tg a{text-decoration:underline;text-underline-offset:3px}
+  .f-bottom a:hover{color:#fff}
+
+  @media (min-width:900px){
+    .hero{padding:28px 0 56px}
+    .pills{gap:10px;font-size:15px}
+    .pill{padding:13px 20px}
+    .main{grid-template-columns:1fr 440px;gap:16px;align-items:start;margin-top:20px}
+    .card{padding:36px 34px}
+    .pay{position:sticky;top:16px}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="pills" style="--pills-em:35.6"><div class="pill">Старт потока:<b>11&nbsp;января</b></div><div class="pill">Предобучение:<b>с&nbsp;14&nbsp;декабря</b></div><div class="pill">Мест:<b>10</b></div></div>
+    <h1>Принять участие в&nbsp;сопровождении <span class="grad-text">от&nbsp;Артёма Пак</span></h1>
+    <span class="tariff">Групповой тариф</span>
+    <p class="lead">Поток из&nbsp;10&nbsp;участников. 2&nbsp;месяца работы по&nbsp;моей модели с&nbsp;ИИ-агентами, мастер-классами и&nbsp;разборами.</p>
+  </div>
+</header>
+
+<main class="wrap main">
+  <section class="card">
+    <h2>Что входит</h2>
+    <ul class="inc">
+
+      <li><b>Предобучение</b><span>Материалы для подготовки открываются 14&nbsp;декабря 2026&nbsp;года.</span></li>
+      <li><b>Метод из&nbsp;6&nbsp;этапов</b><span>От&nbsp;поиска эксперта до&nbsp;продаж его&nbsp;продукта: подписчики, воронка, созвоны.</span></li>
+      <li><b>ИИ-агент поиска экспертов</b><span>Каждый день ищет экспертов в&nbsp;YouTube, Instagram* и&nbsp;Telegram и&nbsp;присылает отчёт.</span></li>
+      <li><b>Более 9 ИИ-агентов</b><span>Поиск, стратегия, презентации, контент, монтаж, продажи, договоры, финансы, техника.</span></li>
+      <li><b>Готовые материалы</b><span>Сообщения экспертам, презентация, типовой договор на&nbsp;долю с&nbsp;продаж.</span></li>
+      <li><b>4 мастер-класса</b><span>В&nbsp;прямом эфире в&nbsp;Zoom.</span></li>
+      <li><b>Не&nbsp;менее 4 Zoom-разборов</b><span>Разбираю твою ситуацию и&nbsp;проект.</span></li>
+      <li><b>Чат со&nbsp;мной</b><span>Отвечаю на&nbsp;вопросы, в&nbsp;том числе голосовыми, весь срок потока.</span></li>
+    </ul>
+    <p class="dates"><b>Срок:</b> поток с&nbsp;11&nbsp;января по&nbsp;11&nbsp;марта 2027&nbsp;года, дистанционно (Telegram и&nbsp;Zoom). Для&nbsp;лиц старше 18&nbsp;лет. Полный состав и&nbsp;гарантированный минимум&nbsp;— в&nbsp;<a href="../docs/offer-prilozhenie.html">Приложении №&nbsp;1 к&nbsp;оферте</a>.</p>
+  </section>
+
+  <section class="card pay" id="pay">
+    <h2>Оформить участие</h2>
+    <div class="price" style="margin-top:16px"><span class="price-v">89.000₽</span></div>
+    <p class="price-n">Групповой тариф. Стоимость фиксируется в&nbsp;момент оплаты и&nbsp;подтверждается кассовым чеком.</p>
+
+    <form id="pay-form" novalidate>
+      <label class="f"><span>Имя и&nbsp;фамилия</span><input type="text" name="name" autocomplete="name" required></label>
+      <label class="f"><span>Электронная почта <i>— на&nbsp;неё придёт чек и&nbsp;доступ</i></span><input type="email" name="email" autocomplete="email" inputmode="email" required></label>
+      <label class="f"><span>Телефон</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7" required></label>
+      <label class="f"><span>Telegram <i>— необязательно</i></span><input type="text" name="telegram" placeholder="@username" autocapitalize="off" spellcheck="false"></label>
+
+      <label class="chk"><input type="checkbox" name="offer" required><span>Мне есть 18&nbsp;лет. Я&nbsp;ознакомлен(а) и&nbsp;согласен(на) с&nbsp;<a href="../docs/offer.html" target="_blank">Договором-офертой</a> и&nbsp;<a href="../docs/offer-prilozhenie.html" target="_blank">Приложением №&nbsp;1</a>, включая порядок возврата, и&nbsp;принимаю <a href="../docs/terms.html" target="_blank">Пользовательское соглашение</a></span></label>
+      <label class="chk"><input type="checkbox" name="pd" required><span>Даю <a href="../docs/consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../docs/privacy.html" target="_blank">Политики обработки персональных данных</a></span></label>
+      <label class="chk"><input type="checkbox" name="ads"><span>Согласен(на) получать <a href="../docs/consent-ads.html" target="_blank">рекламные и&nbsp;информационные сообщения</a> <em>— необязательно</em></span></label>
+
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn" type="submit">Перейти к&nbsp;оплате</button>
+      <p class="fine">Нажимая кнопку, ты&nbsp;оформляешь заказ на&nbsp;условиях <a href="../docs/offer.html" target="_blank">оферты</a>. Оплата проходит на&nbsp;платформе GetCourse: картой, через СБП или&nbsp;в&nbsp;рассрочку от&nbsp;банков-партнёров. Условия рассрочки ты&nbsp;увидишь до&nbsp;её&nbsp;оформления. Доход не&nbsp;гарантируется: результат зависит от&nbsp;твоих действий.</p>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-name">Артём Пак<span>Сопровождение по&nbsp;продюсированию</span></div>
+    <div class="f-tg">Написать мне в&nbsp;Telegram: <a href="https://t.me/andzen200" target="_blank" rel="noopener">@andzen200</a></div>
+    <div class="f-bottom">
+      <p>Результаты и&nbsp;сроки у&nbsp;каждого свои и&nbsp;зависят от&nbsp;твоих действий. Суммы дохода на&nbsp;странице&nbsp;— примеры и&nbsp;ориентир, а&nbsp;не&nbsp;гарантия заработка.</p>
+      <p>Услуги оказывает ИП&nbsp;Нижевясова Анна Станиславовна · ИНН 690503942107 · ОГРНИП 321695200039136 · <a href="mailto:mg.ananizh@gmail.com">mg.ananizh@gmail.com</a></p>
+      <p><a href="../docs/offer.html">Договор-оферта</a> · <a href="../docs/offer-prilozhenie.html">Приложение №&nbsp;1 к&nbsp;оферте</a> · <a href="../docs/privacy.html">Политика обработки персональных данных</a> · <a href="../docs/terms.html">Пользовательское соглашение</a> · <a href="../docs/consent.html">Согласие на&nbsp;обработку данных</a> · <a href="../docs/consent-ads.html">Согласие на&nbsp;рассылки</a></p>
+      <p>* Instagram принадлежит компании Meta, признанной экстремистской организацией и&nbsp;запрещённой в&nbsp;РФ.</p>
+      <p>© 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Куда отправлять заявку: сюда подставится форма/ссылка оплаты GetCourse для этого тарифа
+  const PAY_URL = "";
+  const f = document.getElementById('pay-form'), err = document.getElementById('err');
+  f.addEventListener('submit', e => {
+    e.preventDefault();
+    const msgs = [];
+    if (!f.name.value.trim()) msgs.push('укажи имя');
+    if (!f.email.validity.valid || !f.email.value) msgs.push('проверь почту');
+    if (f.phone.value.replace(/\D/g,'').length < 10) msgs.push('проверь телефон');
+    if (!f.offer.checked) msgs.push('прими условия оферты');
+    if (!f.pd.checked) msgs.push('дай согласие на обработку данных');
+    if (msgs.length) { err.textContent = 'Чтобы продолжить: ' + msgs.join(', ') + '.'; err.classList.add('on'); return; }
+    err.classList.remove('on');
+    if (!PAY_URL) { err.innerHTML = 'Оплата скоро откроется. Пока напиши мне в&nbsp;Telegram: <a href="https://t.me/andzen200" target="_blank" rel="noopener">@andzen200</a>'; err.classList.add('on'); return; }
+    const q = new URLSearchParams({name:f.name.value.trim(), email:f.email.value.trim(), phone:f.phone.value.trim()});
+    location.href = PAY_URL + (PAY_URL.includes('?') ? '&' : '?') + q;
+  });
+</script>
+</body>
+</html>
